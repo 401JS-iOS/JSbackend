@@ -5,7 +5,7 @@ const User = require('../model/user');
 module.exports = exports = {};
 
 exports.createUser = function(user) {
-
+  console.log('this is the user obj', user);
   let tempPassword = user.password;
   user.password = null;
   delete user.password;
