@@ -1,59 +1,84 @@
-'use strict'
+'use strict';
 
-//just for auth process
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const Promise = require('bluebird')
-const mongoose = require('mongoose')
-const createError = require('http-errors')
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const Promise = require('bluebird');
+const mongoose = require('mongoose');
+const createError = require('http-errors');
+const debug = require('debug')('cfgram:user-model');
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
 const userSchema = Schema({
-  username: { type: String, required: true, unique: true },
-  email: {type: String, required: true, unique: true },
-  password: {type: String},
+  username: {type: String, required: true, unique: true},
+  password: {type: String, required: true},
+  email: {type: String, required: true, unique: true},
+  findHash: {type: String, unique: true},
   isDev: {type: Boolean, default: false},
   isNPO: {type: Boolean, default: false},
-})
-
-//when signing up, the user can validate the isDev vs isNPO flag that is toggled by a view button (are you signing up as a dev or as an NPO?)
-
-//npos and dev models are essentially profiles with schema properties to be rendered on DOM
-
-//allows for all logic to be handled in the authRouter, no duplicate code (devRouter and npoRouter with similiar auth process but abstracted to two places)
-
-//might make templating front end easier...look for .isDev vs .isNPO as opposed to querystrings or other work arounds
+});
 
 userSchema.methods.generatePasswordHash = function(password) {
+  debug('#generatePasswordHash');
+
   return new Promise((resolve, reject) => {
     bcrypt.hash(password, 10, (err, hash) => {
-      if(err) return reject(err)
-      this.password = hash
-      resolve(this)
-    })
-  })
-}
+      if(err) return reject(createError(401, 'Password hashing failed'));
+      this.password = hash;
+      resolve(this);
+    });
+  });
+};
 
-//sign in - take in the pw they sign in with and compares against the property saved on the user object via .compare
 userSchema.methods.comparePasswordHash = function(password) {
+  debug('#comparePasswordHash');
+
   return new Promise((resolve, reject) => {
     bcrypt.compare(password, this.password, (err, valid) => {
-      if(err) return reject(err)
-      if(!valid) return reject(createError(401, 'wrong password'))
-      resolve(this)
-    })
-  })
-}
+      if(err) return reject(createError(401, 'Password validation fail'));
+      if(!valid) return reject(createError(401, 'Wrong password'));
+
+      resolve(this);
+    });
+  });
+};
+
+userSchema.methods.generateFindHash = function() {
+  debug('#generateFindHash');
+
+  return new Promise((resolve, reject) => {
+    let tries = 0;
+
+    _generateFindHash.call(this);
+
+    function _generateFindHash() {
+      this.findHash = crypto.randomBytes(32).toString('hex');
+      this.save()
+      .then(() => resolve(this.findHash))
+      .catch(err => {
+        if(err) return reject(createError(401, 'Generate find hash fail'));
+        if(tries > 3) return reject(createError(401, 'Generate find hash fail'));
+        tries++;
+        _generateFindHash();
+      });
+    }
+  });
+};
 
 userSchema.methods.generateToken = function() {
-  return new Promise ((resolve, reject) => {
-    let token = jwt.sign({id: this._id}, process.env.SECRET || 'DEV')
-    if(!token) {
-      reject('could not generate token')
-    }
-    resolve(token)
-  })
-}
+  debug('#generateToken');
 
-module.exports = mongoose.model('users', userSchema)
+  return new Promise((resolve, reject) => {
+    console.log(process.env.MONGODB_URI);
+    this.generateFindHash()
+      .then(findHash => resolve(jwt.sign({token: findHash}, process.env.APP_SECRET)))
+      .catch(err => {
+        console.log(err);
+        if(err) return reject(createError(401, 'Generate token failed'));
+        reject(createError(401, 'Generate token failed'));
+      });
+  });
+};
+
+module.exports = mongoose.model('user', userSchema);

@@ -10,6 +10,7 @@ db
 .DS_Store
 .AppleDouble
 .LSOverride
+>>>>>>> master
 
 ### Linux ###
 *~
@@ -22,7 +23,6 @@ db
 
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
-
 
 ### Node ###
 # Logs
@@ -41,6 +41,12 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
 # node-waf configuration
 .lock-wscript
 
@@ -57,12 +63,35 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
 ### Vim ###
 # swap
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
 # session
 Session.vim
+
 # temporary
 .netrwhist
 *~

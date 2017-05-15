@@ -1,33 +1,34 @@
-'use strict'
+'use strict';
+
+require('dotenv').load();
 
 const express = require('express');
-
+const cors = require('cors');
+//const debug = require('debug')('cfgram:server');
+const Promise = require('bluebird');
+const errorHandler = require('./lib/error-midd');
+const bodyParser = require('body-parser').json();
 const mongoose = require('mongoose');
-const morgan = require('morgan');
-const authRouter = require('./route/auth-router.js');
-const devRouter = require('./route/dev-router');
-const npoRouter = require('./route/npo-router.js');
-const errorMiddleware = require('./lib/error-midd.js');
 
-const app = express();
+const app = module.exports = express();
+const router = express.Router();
+const authRoutes = require('./route/auth-router')(router);
+//const npoRoutes = require('./route/npo-router')(router);
+//const devRoutes = require('./route/dev-router')(router);
 
-//local mongo db will be called 'devolunteer'
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/devolunteer';
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
-app.use(morgan('dev'));
-app.use(authRouter);
-app.use(devRouter);
-app.use(npoRouter);
-app.use(errorMiddleware);
+app.use(errorHandler);
+app.use(cors());
+app.use(bodyParser);
 
-module.exports = app;
+app.use('/api', authRoutes);
+//app.use('/api', npoRoutes);
+//app.use('/api', devRoutes);
 
-if(require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`listening on PORT ${PORT}`)
-  })
-}
+app.listen(PORT,() => console.log(`Listening on PORT ${PORT}`));
+
