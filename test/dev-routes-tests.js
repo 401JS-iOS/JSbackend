@@ -32,4 +32,34 @@ describe('server module', function() {
       });
     });
   });
+  describe('GET method', function() {
+    before(done => {
+      chai.request(server)
+      .post('/api/signup')
+      .send(mockDev)
+      .end((err) => {
+        if(err) console.error(err);
+        done();
+      });
+      after(done => {
+        chai.request(server)
+        .delete('/api/dev')
+        .end(err => {
+          if(err) console.error(err);
+          done();
+        });
+      });
+      describe('properly formatted request', function() {
+        it('should return a 200 status code', done => {
+          chai.request(server)
+          .get('/api/devList')
+          .end((err, res) => {
+            if(err) console.error(err);
+            expect(res.status).to.equal(200);
+            done();
+          });
+        });
+      });
+    });
+  });
 });
