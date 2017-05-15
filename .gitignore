@@ -1,9 +1,16 @@
-# ignore env
-.env
-# ignore db directorys
+# Created by https://www.gitignore.io/api/osx,linux,node,vim
+
+### DB directory
 db
 
-# Created by https://www.gitignore.io/api/linux,node,osx,vim
+### Env file
+.env
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+>>>>>>> master
 
 ### Linux ###
 *~
@@ -16,7 +23,6 @@ db
 
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
-
 
 ### Node ###
 # Logs
@@ -57,15 +63,8 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-
-### OSX ###
-*.DS_Store
-.AppleDouble
-.LSOverride
-
 # Icon must end with two \r
 Icon
-
 
 # Thumbnails
 ._*
@@ -86,15 +85,16 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-
 ### Vim ###
 # swap
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
 # session
 Session.vim
+
 # temporary
 .netrwhist
 *~
+
 # auto-generated tag files
 tags

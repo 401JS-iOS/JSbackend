@@ -1,16 +1,11 @@
 {
-  "name": "devolunteer-backend",
+  "name": "midterm-project",
   "version": "1.0.0",
-  "description": "backend to devolunteer angular app",
+  "description": "401 JS Midterm/iOS Final Project",
   "main": "server.js",
-  "engines": {
-    "node": "6.9.1"
+  "directories": {
+    "test": "test"
   },
-  "scripts": {
-    "start": "node server.js"
-  },
-  "author": "Jacob Isenberg, JR Iriarte, Jonathan Daniel, Michael Bishop",
-  "license": "MIT",
   "dependencies": {
     "bcrypt": "^1.0.2",
     "bcryptjs": "^2.4.3",
@@ -19,16 +14,31 @@
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "http-errors": "^1.6.1",
-    "jsonwebtoken": "^7.3.0",
     "mongo": "^0.1.0",
-    "mongoose": "^4.9.1",
+    "jsonwebtoken": "^7.4.0",
+    "mongoose": "^4.9.9",
     "morgan": "^1.8.1",
     "nodemon": "^1.11.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint": "^3.18.0",
-    "mocha": "^3.2.0",
+    "chai-http": "^3.0.0",
+    "eslint": "^3.19.0",
+    "mocha": "^3.4.1",
     "superagent": "^3.5.2"
-  }
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/401JS-iOS/JSbackend.git"
+  },
+  "author": "James Thomas, Kaylee Alvarado, Carlo Santos, Christopher Closser, Robert Hatfield, Jay Balderas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/401JS-iOS/JSbackend/issues"
+  },
+  "homepage": "https://github.com/401JS-iOS/JSbackend#readme"
 }
