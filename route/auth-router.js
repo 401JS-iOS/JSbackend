@@ -1,33 +1,23 @@
-'use strict'
+'use strict';
 
-let Router = require('express').Router
-let basicAuth = require('../lib/basic-auth-midd.js')
-let User = require('../model/user.js')
-let createError = require('http-errors')
-let jsonParser = require('body-parser').json()
-
-let router = module.exports = new Router()
+let basicAuth = require('../lib/basic-auth-midd.js');
+let authController = require('../controller/auth-controller');
+let Router = require('express').Router;
+let router = module.exports = new Router();
 
 //posts a new user with their information
-router.post('/api/signup', jsonParser, (req, res, next) => {
-  let user = new User(req.body)
-
-  user.generatePasswordHash(user.password)
-  .then(user  => user.save())
-  .then(user => user.generateToken())
-  .then(token => res.send(token))
-  .catch(next)
-})
+router.post('/api/signup', (req, res) => {
+  authController.createUser(req.body)
+  .then(token => res.json(token))
+  .catch(err => res.status(err).send(err.message));
+});
 
 //sends the users token if they log in successfully
-router.get('/api/login', basicAuth, (req, res, next) => {
+router.get('/api/login', basicAuth, (req, res) => {
 
-  User.findOne({username: req.auth.username})
-  .then(user => {
-    if(!user) return Promise.reject(next(createError(401)))
-    return user.comparePasswordHash(req.auth.password)
-  })
+  authController.fetchUser(req.auth)
+  .then(user => user.comparePasswordHash(req.auth.password))
   .then(user => user.generateToken())
-  .then(token => res.send(token))
-  .catch(next)
-})
+  .then(token => res.json(token))
+  .catch(err => res.status(err.status).send(err.message));
+});
