@@ -1,25 +1,26 @@
 'use strict';
 
-let basicAuth = require('../lib/basic-auth-midd.js');
-let authController = require('../controller/auth-controller');
-//let Router = require('express').Router;
-//let router = module.exports = new Router();
+const debug = require('debug')('cfgram:auth-routes');
+const basicAuth = require('../lib/basic-auth-midd');
+const authCntrl = require('../controller/auth-controller');
 
 module.exports = function(router) {
-  //posts a new user with their information
-  router.post('/api/signup', (req, res) => {
-    console.log('this is the request body', req);
-    authController.createUser(req.body)
+
+  router.post('/signup', (req, res) => {
+    debug('POST /signup');
+
+    authCntrl.createUser(req, res, req.body)
     .then(token => res.json(token))
-    .catch(err => res.status(err).send(err.message));
+    .catch(err => res.status(400).send(err));
   });
-  //sends the users token if they log in successfully
-  router.get('/api/login', basicAuth, (req, res) => {
-    authController.fetchUser(req.auth)
-    .then(user => user.comparePasswordHash(req.auth.password))
-    .then(user => user.generateToken())
+
+  router.get('/signin', basicAuth, (req, res) => {
+    debug('GET /signin');
+
+    console.log(req.auth);
+    authCntrl.fetchUser(res, req.auth)
     .then(token => res.json(token))
-    .catch(err => res.status(err.status).send(err.message));
+    .catch(err => res.status(res.status).send(err));
   });
   return router;
 };
