@@ -19,6 +19,12 @@ exports.fetchNpo = function(id, res) {
   .catch(err => res.status(err.status).send(err.message));
 };
 
+exports.fetchAllNpos = function(res) {
+  return Npo.find()
+  .then(devs => devs)
+  .catch(err => res.status(err.status).send(err.message));
+};
+
 exports.updateNpo = function(req, res, id) {
   return Npo.findByIdAndUpdate(id, req.body, {new:true})
   .then(npo => npo)

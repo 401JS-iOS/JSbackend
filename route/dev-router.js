@@ -1,13 +1,8 @@
 'use strict';
 
-//let Router = require('express').Router;
 const bearerAuth = require('../lib/bearer-auth-midd.js');
-const basicAuth = require('../lib/basic-auth-midd.js');
 const createError = require('http-errors');
-//let jsonParser = require('body-parser').json();
 const devController = require('../controller/dev-controller');
-
-//let router = module.exports = new Router();
 
 //unauthed get all devs to pass to filtered dev list
 module.exports = function(router) {
