@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-let mongoose = require('mongoose')
+let mongoose = require('mongoose');
 
 let npoSchema = mongoose.Schema({
   username: {type: String, ref: 'users'},
@@ -12,7 +12,7 @@ let npoSchema = mongoose.Schema({
   projects: [{type: String}],
   developers: [{type: mongoose.Schema.Types.ObjectId, ref: 'devs'}],
   reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'reviews'}],
-})
+});
 
 
-module.exports = mongoose.model('npos', npoSchema)
+module.exports = mongoose.model('npos', npoSchema);
