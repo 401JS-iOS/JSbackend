@@ -18,3 +18,15 @@ exports.fetchDev = function(id, res) {
   .then( dev => dev)
   .catch(err => res.status(err.status).send(err.message));
 };
+
+exports.updateDev = function(req, res, id) {
+  return Dev.findByIdAndUpdate(id, req.body, {new:true})
+  .then(dev => dev)
+  .catch(err => res.status(err.status).send(err.message));
+};
+
+exports.deleteDev = function(req,res, id) {
+  Dev.findByIdAndRemove(id)
+  .then(() => res.status(204).send())
+  .catch(err => res.send(err));
+};
