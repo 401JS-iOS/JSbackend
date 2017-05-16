@@ -10,8 +10,8 @@ let npoSchema = mongoose.Schema({
   state: {type: String},
   phone: {type: String},
   email: {type: String},
-  profilepic: {type: String},
-  website: [{type: String}],
+  profilePic: {type: String},
+  websites: [{type: String}],
   projects: [{type: mongoose.Schema.Types.ObjectId, ref: 'projects' }],
 });
 

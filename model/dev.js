@@ -10,11 +10,11 @@ let devSchema = mongoose.Schema({
   state: {type: String},
   phone: {type: String},
   email: {type: String},
-  profilepic: {type: String},
-  website: [{type: String}],
+  profilePic: {type: String},
+  websites: [{type: String}],
   languages: [{type: String}],
   services: [{type: String}],
-  available: {type: Boolean},
+  isAvailable: {type: Boolean},
   projects: [{type: mongoose.Schema.Types.ObjectId, ref: 'projects' }],
 });
 
