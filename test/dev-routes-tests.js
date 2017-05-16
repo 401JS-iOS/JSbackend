@@ -7,7 +7,7 @@ const expect = chai.expect;
 const User = require('../model/user');
 const Dev = require('../model/dev');
 const mockUser = new User({username: 'jimmy', email: 'jimmy@jimmy.com', password: 'secret', isDev: true});
-const mockDev = new Dev({username: mockUser.username});
+const mockDev = new Dev({userID: mockUser._id, username: mockUser.username});
 
 chai.use(http);
 
@@ -35,7 +35,7 @@ describe('server module', function() {
   describe('GET routes', function() {
     before(done => {
       chai.request(server)
-      .post('/api/signup')
+      .post('/api/dev')
       .send(mockDev)
       .end((err) => {
         if(err) console.error(err);
@@ -43,7 +43,7 @@ describe('server module', function() {
       });
       after(done => {
         chai.request(server)
-        .delete('/api/dev')
+        .delete(`/api/dev/${mockDev.userID}`)
         .end(err => {
           if(err) console.error(err);
           done();
@@ -73,12 +73,12 @@ describe('server module', function() {
           });
         });
       });
-      describe('a request to /api/dev', function() {
+      describe('a request to /api/dev/:id', function() {
         describe('a properly formatted request', function() {
           it('should return a 200 status code', done => {
             chai.request(server)
-            .get('/api/dev')
-            .send(mockDev._id)
+            .get('/api/dev/:id')
+            .send(mockDev.userID)
             .end((err, res) => {
               if(err) console.error(err);
               expect(res.status).to.equal(200);
@@ -89,7 +89,7 @@ describe('server module', function() {
         describe('an improperly formatted request', function() {
           it('should return a 404 status code given an invalid id', done => {
             chai.request(server)
-            .get('/api/dev')
+            .get('/api/dev/:id')
             .send(mockDev.badId)
             .end((err, res) => {
               if(err) console.error(err);
