@@ -62,4 +62,35 @@ describe('server module', function() {
       });
     });
   });
+  describe('DELETE method', function() {
+    before(done => {
+      chai.request(server)
+      .post('/api/signup')
+      .send(mockDev)
+      .end(err => {
+        if(err) console.error(err);
+        done();
+      });
+    });
+    after(done => {
+      chai.request(server)
+      .delete('/api/dev')
+      .end(err => {
+        if(err) console.error(err);
+        done();
+      });
+    });
+    describe('a properly formatted request', function() {
+      it('should return a 204 status on a proper request', done => {
+        chai.request(server)
+        .delete('/api/dev')
+        .send(mockDev._id)
+        .end((err, res) => {
+          if(err) console.log(err);
+          expect(res.status).to.equal(204);
+          done();
+        });
+      });
+    });
+  });
 });
