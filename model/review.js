@@ -5,12 +5,13 @@ let mongoose = require('mongoose');
 
 //review model will be used for npos and devs
 let reviewSchema = mongoose.Schema({
-  dev: {type: mongoose.Schema.Types.ObjectId, ref: 'devs' },
-  npo: {type: mongoose.Schema.Types.ObjectId, ref: 'npos'},
+  projectID: {type: mongoose.Schema.Types.ObjectId, ref: 'projects' },
+  devID: {type: mongoose.Schema.Types.ObjectId, ref: 'devs' },
+  npoID: {type: mongoose.Schema.Types.ObjectId, ref: 'npos'},
   stars: {type: Number, min:0, max: 5},
   desc: {type: String},
-  date_start: {type: Date},
-  date_end: {type: Date},
+  dateStart: {type: Date},
+  dateEnd: {type: Date},
 });
 
 module.exports = mongoose.model('reviews', reviewSchema);

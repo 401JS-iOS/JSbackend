@@ -16,7 +16,6 @@ const userSchema = Schema({
   email: {type: String, required: true, unique: true},
   findHash: {type: String, unique: true},
   isDev: {type: Boolean, default: false},
-  isNPO: {type: Boolean, default: false},
 });
 
 userSchema.methods.generatePasswordHash = function(password) {
