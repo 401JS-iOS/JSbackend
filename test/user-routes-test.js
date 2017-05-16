@@ -5,8 +5,7 @@ const chai = require('chai');
 const http = require('chai-http');
 const expect = chai.expect;
 const User = require('../model/user');
-const mockDevUser = new User({username: 'jimmy', email: 'jimmy@jimmy.com', password: 'secret', isDev: true});
-const mockNPOUser = new User({username: 'molly', email: 'molly@molly.com', password: 'moresecret', isNPO: true});
+const mockDev = new User({username: 'jimmy', email: 'jimmy@jimmy.com', password: 'secret', isDev: true});
 
 chai.use(http);
 
@@ -32,33 +31,93 @@ describe('server module', function() {
     });
   });
 
-  describe('POST method', function() {
+  describe('GET routes', function() {
     before(done => {
       chai.request(server)
-      .post('/api/signup')
-      .send(mockDevUser)
+      .post('/signup')
+      .send(mockDev)
       .end((err) => {
         if(err) console.error(err);
         done();
       });
       after(done => {
         chai.request(server)
-        .delete('/api/signup')
+        .delete('/signup')
         .end(err => {
           if(err) console.error(err);
           done();
         });
       });
     });
-    describe('a properly formatted request', function() {
-      it('should return a 200 status code if given a valid body', done => {
+    describe('a request to /api/signin', function() {
+      describe('a properly formatted request', function() {
+        it('should return a 200 status code if matching credentials entered', done => {
+          chai.request(server)
+          .get('/signin')
+          .auth('jimmy', 'secret')
+          .end((err, res) => {
+            if(err) console.error(err);
+            expect(res.status).to.equal(200);
+            done();
+          });
+        });
+      });
+      describe('an improperly formatted request', function() {
+        it('should return a 400 status code if wrong credentials entered', done => {
+          chai.request(server)
+          .get('/signin')
+          .auth('jimmy', 'wrong')
+          .end((err, res) => {
+            if(err) console.error(err);
+            expect(res.status).to.equal(400);
+            done();
+          });
+        });
+      });
+    });
+  });
+
+  describe('POST routes', function() {
+    before(done => {
+      chai.request(server)
+      .post('/signup')
+      .send(mockDev)
+      .end((err) => {
+        if(err) console.error(err);
+        done();
+      });
+      after(done => {
         chai.request(server)
-        .get('/api/login')
-        .auth('jimmy', 'secret')
-        .end((err, res) => {
+        .delete('/signup')
+        .end(err => {
           if(err) console.error(err);
-          expect(res.status).to.equal(200);
           done();
+        });
+      });
+    });
+    describe('a request to /api/signup', function() {
+      describe('a properly formatted request', function() {
+        it('should return a 200 status code if given a valid body', done => {
+          chai.request(server)
+          .post('/signup')
+          .send(mockDev)
+          .end((err, res) => {
+            if(err) console.error(err);
+            expect(res.status).to.equal(200);
+            done();
+          });
+        });
+      });
+      describe('an improperly formatted request', function() {
+        it('should return a 400 status code if given an invalid body or no body', done => {
+          chai.request(server)
+          .post('/signup')
+          .send({})
+          .end((err, res) => {
+            if(err) console.error(err);
+            expect(res.status).to.equal(400);
+            done();
+          });
         });
       });
     });
