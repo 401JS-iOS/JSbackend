@@ -1,8 +1,9 @@
+'use strict';
+
 //let Router = require('express').Router;
-let bearerAuth = require('../lib/bearer-auth-midd.js');
-let basicAuth = require('../lib/basic-auth-midd.js');
-let createError = require('http-errors');
-let Dev = require('../model/dev');
+const bearerAuth = require('../lib/bearer-auth-midd.js');
+const basicAuth = require('../lib/basic-auth-midd.js');
+const createError = require('http-errors');
 //let jsonParser = require('body-parser').json();
 const devController = require('../controller/dev-controller');
 
@@ -10,12 +11,10 @@ const devController = require('../controller/dev-controller');
 
 //unauthed get all devs to pass to filtered dev list
 module.exports = function(router) {
-  router.get('/devList', basicAuth, (req, res, next) => {
-    Dev.find()
-    .then(allDevsObj => {
-      res.send(allDevsObj);
-    })
-    .catch(next);
+  router.get('/devlist', (req, res) => {
+    devController.fetchAllDevs()
+    .then(devs => res.json(devs))
+    .catch(err => res.status(err.status).send(err.message));
   });
 
   //req.user should be a individual user which the bearer auth will identify
