@@ -42,13 +42,14 @@ module.exports = function(router) {
     .catch(err => res.status(err.status).send(err.message));
   });
 
-  router.delete('/dev', bearerAuth, (req, res) => {
-    Dev.findByIdAndRemove(req.user.id)
-    .then(user => res.json(user))
-    .catch(e => {
-      console.log(e);
-      res.json({}); //or err.message?
-    });
+  router.put('/dev/:id', bearerAuth, (req, res) => {
+    devController.updateDev(req, res, req.params.id)
+    .then(dev => res.json(dev))
+    .catch(err => res.status(err.status).send(err.message));
+  });
+
+  router.delete('/dev/:id', bearerAuth, (req, res) => {
+    devController.deleteDev(req, res, req.params.id);
   });
 
   return router;
