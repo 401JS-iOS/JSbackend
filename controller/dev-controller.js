@@ -12,6 +12,12 @@ exports.createDev = function(body, user) {
   .catch(err => body.status(err.status).send(err.message));
 };
 
+exports.fetchAllDevs = function(res) {
+  return Dev.find()
+  .then(devs => devs)
+  .catch(err => res.status(err.status).send(err.message));
+};
+
 exports.fetchDev = function(id, res) {
 
   return Dev.findById(id)

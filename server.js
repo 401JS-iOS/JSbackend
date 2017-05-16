@@ -13,7 +13,7 @@ const mongoose = require('mongoose');
 const app = module.exports = express();
 const router = express.Router();
 const authRoutes = require('./route/auth-router')(router);
-//const npoRoutes = require('./route/npo-router')(router);
+const npoRoutes = require('./route/npo-router')(router);
 const devRoutes = require('./route/dev-router')(router);
 
 const PORT = process.env.PORT || 3000;
@@ -27,7 +27,7 @@ app.use(cors());
 app.use(bodyParser);
 
 app.use('/api', authRoutes);
-//app.use('/api', npoRoutes);
+app.use('/api', npoRoutes);
 app.use('/api', devRoutes);
 
 app.listen(PORT,() => console.log(`Listening on PORT ${PORT}`));
