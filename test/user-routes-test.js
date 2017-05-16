@@ -32,7 +32,7 @@ describe('server module', function() {
     });
   });
 
-  describe('GET method', function() {
+  describe('POST method', function() {
     before(done => {
       chai.request(server)
       .post('/api/signup')
