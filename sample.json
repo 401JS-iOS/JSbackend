@@ -1,0 +1,120 @@
+{
+	"dev": {
+		"userID": "users._id",
+		"username": "carlomari",
+		"address": "742 Evergreen Terrace",
+		"city": "Springfield",
+		"state": "Ohhimod",
+		"phone": "555-867-5309",
+		"email": "carlomari@squidbilly.com",
+		"profile-picture": "something.jpg",
+		"websites": ["*.com"],
+		"languages": ["carpenter", "plumber", "river dance"],
+		"services": ["full stack", "front end", "back end"],
+		"available": true,
+		"projects": [{
+			"projectID": {
+				"npoId": {
+					"npo": {
+						"userID": "users._id",
+						"username": "something",
+						"profilepic": "/logo.png",
+						"org": "somthing give money",
+						"address": "742 Evergreen Terrace",
+						"city": "Springfield",
+						"state": "Ohhimod",
+						"phone": "555-5465",
+						"email": "someorg@org.org",
+						"projects": [{
+							"projectID": "3475457"
+						}]
+					}
+				},
+				"service": "single page app",
+				"devs": [{
+					"devID": "devs._id"
+				}],
+				"reviews": [{
+					"reviewID": {
+						"projectID": "3463246",
+						"devID": "245254",
+						"npoID": "4535655",
+						"stars": 4,
+						"desc": "this dev really devs hard",
+						"dateStart": "5-15-16",
+						"dateEnd": "5-6-33"
+					}
+				}],
+				"description": "I need a single page app for my NPO"
+			}
+		}]
+	},
+
+
+	"npo": {
+		"userID": "users._id",
+		"username": "something",
+		"profilepic": "/logo.png",
+		"org": "somthing give money",
+		"address": "742 Evergreen Terrace",
+		"city": "Springfield",
+		"state": "Ohhimod",
+		"phone": "555-5465",
+		"email": "someorg@org.org",
+		"projects": [{
+			"projectID": "3475457"
+		}]
+	},
+
+	"user": {
+		"username": "someuser",
+		"email": "givemework@impoor.org",
+		"password": "passwords",
+		"isDev": true
+	},
+
+	"project": {
+		"npoId": {
+			"npo": {
+				"userID": "users._id",
+				"username": "something",
+				"profilepic": "/logo.png",
+				"org": "somthing give money",
+				"address": "742 Evergreen Terrace",
+				"city": "Springfield",
+				"state": "Ohhimod",
+				"phone": "555-5465",
+				"email": "someorg@org.org",
+				"projects": [{
+					"projectID": "3475457"
+				}]
+			}
+		},
+		"service": "single page app",
+		"devs": [{
+			"devID": "devs._id"
+		}],
+		"reviews": [{
+			"reviewID": {
+				"projectID": "3463246",
+				"devID": "245254",
+				"npoID": "4535655",
+				"stars": 4,
+				"desc": "this dev really devs hard",
+				"dateStart": "5-15-16",
+				"dateEnd": "5-6-33"
+			}
+		}],
+		"description": "I need a single page app for my NPO"
+	},
+
+	"review": {
+		"projectID": "3463246",
+		"devID": "245254",
+		"npoID": "4535655",
+		"stars": 4,
+		"desc": "this dev really devs hard",
+		"dateStart": "5-15-16",
+		"dateEnd": "5-6-33"
+	}
+}
