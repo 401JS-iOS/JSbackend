@@ -33,6 +33,7 @@
   "scripts": {
     "lint": "eslint ./",
     "test": "mocha",
+    "debug": "DEBUG=devolunteer* npm run test",
     "start": "node server.js",
     "cover": "npm run lint && istanbul cover _mocha",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"

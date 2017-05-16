@@ -35,145 +35,56 @@ describe('dev routes', function() {
   describe('GET routes', function() {
     before(done => {
       chai.request(server)
-      .post('/api/signup')
-      .send(mockDev)
-      .end((err) => {
-        if(err) console.error(err);
-        done();
-      });
-      after(done => {
-        chai.request(server)
-        .delete(`/api/dev/${mockDev.userID}`)
-        .end(err => {
-          if(err) console.error(err);
-          done();
-        });
-      });
-      describe('a request to /api/devList', function() {
-        describe('a properly formatted request', function() {
-          it('should return a 200 status code', done => {
-            chai.request(server)
-            .get('/api/devList')
-            .end((err, res) => {
-              if(err) console.error(err);
-              expect(res.status).to.equal(200);
-              done();
-            });
-          });
-        });
-        describe('a improperly formatted request', function() {
-          it('should return a 400 status code', done => {
-            chai.request(server)
-            .get('/api/devList')
-            .end((err, res) => {
-              if(err) console.error(err);
-              expect(res.status).to.equal(400);
-              done();
-            });
-          });
-        });
-      });
-      describe('a request to /api/dev/:id', function() {
-        describe('a properly formatted request', function() {
-          it('should return a 200 status code', done => {
-            chai.request(server)
-            .get('/api/dev/:id')
-            .send(mockDev.userID)
-            .end((err, res) => {
-              if(err) console.error(err);
-              expect(res.status).to.equal(200);
-              done();
-            });
-          });
-        });
-        describe('an improperly formatted request', function() {
-          it('should return a 404 status code given an invalid id', done => {
-            chai.request(server)
-            .get('/api/dev/:id')
-            .send(mockDev.badId)
-            .end((err, res) => {
-              if(err) console.error(err);
-              expect(res.status).to.equal(404);
-              done();
-            });
-          });
-        });
-      });
-    });
-  });
-  describe('POST routes', function() {
-    before(done => {
-      chai.request(server)
-      .post('/api/signup')
-      .send(mockDev)
-      .end((err) => {
-        if(err) console.error(err);
-        done();
-      });
-      after(done => {
-        chai.request(server)
-        .delete('/api/dev')
-        .end(err => {
-          if(err) console.error(err);
-          done();
-        });
-      });
-      describe('a request to /api/dev', function() {
-        describe('a properly formatted request', function() {
-          it('should return a 200 status code', done => {
-            chai.request(server)
-            .post('/api/dev')
-            .send(mockDev)
-            .end((err, res) => {
-              if(err) console.error(err);
-              expect(res.status).to.equal(200);
-              done();
-            });
-          });
-        });
-        describe('an improperly formatted request', function() {
-          it('should return a 400 status code given an invalid body or no body', done => {
-            chai.request(server)
-            .post('/api/dev')
-            .send({})
-            .end((err, res) => {
-              if(err) console.error(err);
-              expect(res.status).to.equal(400);
-              done();
-            });
-          });
-        });
-      });
-    });
-  });
-
-  describe('DELETE routes', function() {
-    before(done => {
-      chai.request(server)
       .post('/api/dev')
       .send(mockDev)
-      .end(err => {
+      .end((err) => {
         if(err) console.error(err);
         done();
       });
     });
     after(done => {
       chai.request(server)
-      .delete(`/api/dev`)
-      .query({id: mockDev.userID})
+      .delete(`/api/dev/${mockDev.userID}`)
       .end(err => {
         if(err) console.error(err);
         done();
       });
     });
+    describe('a request to /api/devlist', function() {
+      describe('a properly formatted request', function() {
+        it('should return a 200 status code', done => {
+          chai.request(server)
+          .get('/api/devlist')
+          .send()
+          .end((err, res) => {
+            if(err) console.error(err);
+            expect(res.status).to.equal(200);
+            done();
+          });
+        });
+      });
+      describe('a improperly formatted request', function() {
+        it('should return a 400 status code', done => {
+          chai.request(server)
+          .get('/api/devlist')
+          .send()
+          .end((err, res) => {
+            if(err) console.error(err);
+            expect(res.status).to.equal(400);
+            done();
+          });
+        });
+      });
+    });
     describe('a request to /api/dev/:id', function() {
       describe('a properly formatted request', function() {
-        it('should return a 204 status code', done => {
+        it('should return a 200 status code', done => {
           chai.request(server)
-          .delete(`/api/dev/${mockDev.userID}`)
+          .get(`/api/dev/${mockDev.userID}`)
+          .send()
           .end((err, res) => {
-            if(err) console.log(err);
-            expect(res.status).to.equal(204);
+            if(err) console.error(err);
+            expect(res.status).to.equal(200);
             done();
           });
         });
@@ -181,12 +92,103 @@ describe('dev routes', function() {
       describe('an improperly formatted request', function() {
         it('should return a 404 status code given an invalid id', done => {
           chai.request(server)
-          .delete(`/api/dev/${mockDev.userID}`)
+          .get('/api/dev/badID')
+          .send()
           .end((err, res) => {
-            if(err) console.log(err);
+            if(err) console.error(err);
             expect(res.status).to.equal(404);
             done();
           });
+        });
+      });
+    });
+  });
+});
+
+describe('POST routes', function() {
+  before(done => {
+    chai.request(server)
+    .post('/api/dev')
+    .send(mockDev)
+    .end((err) => {
+      if(err) console.error(err);
+      done();
+    });
+  });
+  after(done => {
+    chai.request(server)
+    .delete(`/api/dev/${mockDev.userID}`)
+    .end(err => {
+      if(err) console.error(err);
+      done();
+    });
+  });
+  describe('a request to /api/dev', function() {
+    describe('a properly formatted request', function() {
+      it('should return a 200 status code', done => {
+        chai.request(server)
+        .post('/api/dev')
+        .send(mockDev)
+        .end((err, res) => {
+          if(err) console.error(err);
+          expect(res.status).to.equal(200);
+          done();
+        });
+      });
+    });
+    describe('an improperly formatted request', function() {
+      it('should return a 400 status code given an invalid body or no body', done => {
+        chai.request(server)
+        .post('/api/dev')
+        .send()
+        .end((err, res) => {
+          if(err) console.error(err);
+          expect(res.status).to.equal(400);
+          done();
+        });
+      });
+    });
+  });
+});
+
+describe('DELETE routes', function() {
+  before(done => {
+    chai.request(server)
+    .post('/api/dev')
+    .send(mockDev)
+    .end(err => {
+      if(err) console.error(err);
+      done();
+    });
+  });
+  after(done => {
+    chai.request(server)
+    .delete(`/api/dev/${mockDev.userID}`)
+    .end(err => {
+      if(err) console.error(err);
+      done();
+    });
+  });
+  describe('a request to /api/dev/:id', function() {
+    describe('a properly formatted request', function() {
+      it('should return a 204 status code', done => {
+        chai.request(server)
+        .delete(`/api/dev/${mockDev.userID}`)
+        .end((err, res) => {
+          if(err) console.log(err);
+          expect(res.status).to.equal(204);
+          done();
+        });
+      });
+    });
+    describe('an improperly formatted request', function() {
+      it('should return a 404 status code given an invalid id', done => {
+        chai.request(server)
+        .delete(`/api/dev/${mockDev.userID}`)
+        .end((err, res) => {
+          if(err) console.log(err);
+          expect(res.status).to.equal(404);
+          done();
         });
       });
     });
