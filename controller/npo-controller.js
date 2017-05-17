@@ -21,7 +21,7 @@ exports.fetchNpo = function(id, res) {
 
 exports.fetchAllNpos = function(res) {
   return Npo.find()
-  .then(devs => devs)
+  .then(npos => npos)
   .catch(err => res.status(err.status).send(err.message));
 };
 

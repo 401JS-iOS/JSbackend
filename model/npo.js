@@ -12,7 +12,7 @@ let npoSchema = mongoose.Schema({
   email: {type: String},
   profilePic: {type: String},
   websites: [{type: String}],
-  projects: [{type: mongoose.Schema.Types.ObjectId, ref: 'projects' }],
+  projects: [{type: mongoose.Schema.Types.ObjectId, ref: 'project' }],
 });
 
 module.exports = mongoose.model('npos', npoSchema);
