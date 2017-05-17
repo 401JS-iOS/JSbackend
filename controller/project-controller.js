@@ -15,6 +15,7 @@ exports.createProject = function(req) {
     let projData = {
       userID: req.user._id,
       npoID: req.params.id,
+      projStatus: req.body.projStatus,
       service: req.body.service,
       desc: req.body.desc,
     };
