@@ -3,6 +3,7 @@
 const bearerAuth = require('../lib/bearer-auth-midd.js');
 const createError = require('http-errors');
 const devController = require('../controller/dev-controller');
+const projController = require('../controller/project-controller');
 
 //unauthed get all devs to pass to filtered dev list
 module.exports = function(router) {
@@ -39,6 +40,16 @@ module.exports = function(router) {
   router.put('/dev/:id', bearerAuth, (req, res) => {
     devController.updateDev(req, res, req.params.id)
     .then(dev => res.json(dev))
+    .catch(err => res.status(err.status).send(err.message));
+  });
+
+  router.put('/dev/:id/project/:id', bearerAuth, (req, res) => {
+    devController.updateDev(req, res, req.params.id)
+    .then(proj => {
+      let startProj = projController.fetchProject(req.params.id);
+      console.log('startProj', startProj);
+      proj.projects.push(startProj);
+    })
     .catch(err => res.status(err.status).send(err.message));
   });
 

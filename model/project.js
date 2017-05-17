@@ -10,6 +10,7 @@ let projectSchema = mongoose.Schema({
   dev: {type: mongoose.Schema.Types.ObjectId, ref: 'devs'},
   reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'reviews'}],
   desc: {type: String},
+  projStatus: {type: String},
   dateStart: {type: Date},
   dateEnd: {type: Date},
 });
