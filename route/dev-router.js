@@ -26,7 +26,7 @@ module.exports = function(router) {
   router.get('/dev/:id', bearerAuth, (req, res) => {
     //if(!req.user.isDev) return next(createError(401, 'please log in as a developr'));
 
-    devController.fetchDev(req.params.id)
+    devController.fetchDev(req.params.id, res)
     .then(dev => {
       if(dev.userID.toString() !== req.user._id.toString()) {
         return createError(401, 'Invalid User ID');
