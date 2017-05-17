@@ -1,150 +1,92 @@
-// 'use strict';
-//
-// const server = require('../server');
-// const chai = require('chai');
-// const http = require('chai-http');
-// const expect = chai.expect;
-// const baseUrl = `http://localhost:${process.env.PORT}`;
-// const serverControl = require('./lib/server-control');
-// const superagent = require('superagent');
-// const mockUser = require('./lib/mock-user');
-// const mockDev = require('./lib/mock-dev');
-// const User = require('../model/user');
-// const Dev = require('../model/dev');
-//
-//
-// chai.use(http);
-//
-// describe('dev routes', function() {
-//   before(done => serverControl.startServer(done));
-//   after(done => serverControl.killServer(done));
-//   afterEach(done => {
-//     User.remove({})
-//     .then(() => done())
-//     .catch(done);
-//   });
-//
-//   // describe('an unregistered route', function() {
-//   //   it('should return a 404 status code', done => {
-//   //     chai.request(server)
-//   //     .post('/api/badRoute')
-//   //     .end((err, res) => {
-//   //       // if(err) console.error(err);
-//   //       expect(res.status).to.equal(404);
-//   //       done();
-//   //     });
-//   //   });
-//   // });
-//
-//   describe('GET routes', function() {
-//     before(done => {
-//       superagent.post(`${baseUrl}/api/signup`)
-//       .send(mockDev)
-//       .end((err) => {
-//         // if(err) console.error(err);
-//         done();
-//       });
-//     });
-//
-//     describe('a request to /api/devlist', function() {
-//       beforeEach(mockUser.bind(this));
-//       it('should return a 200 status code on a good request', done => {
-//         superagent.get(`${baseUrl}/api/devlist`)
-//         .end((err, res) => {
-//           console.log(err);
-//           expect(res.status).to.equal(200);
-//           done();
-//         });
-//       });
-//       it('should return a 200 status code', done => {
-//         superagent.get('/api/devlist')
-//         .send()
-//         .end((err, res) => {
-//           // if(err) console.error(err);
-//           expect(res.status).to.equal(200);
-//           done();
-//         });
-//       });
-//       it('should return a 400 status code on a bad request', done => {
-//         superagent.get(`${baseUrl}/api/devlist`)
-//         .set('Authorization', `Bearer ${this.tempToken}`)
-//         .end((err, res) => {
-//           expect(res.status).to.equal(400);
-//           done();
-//         });
-//       });
-//
-//       describe('a request to /api/dev/:id', function() {
-//         beforeEach(mockUser.bind(this));
-//         it('should return a 200 status code on a good request', done => {
-//           superagent.get(`${baseUrl}/api/dev/${this.tempUser._id}`)
-//           .set('Authorization', `Bearer ${this.tempToken}`)
-//           .end((err, res) => {
-//             // if(err) console.error(err);
-//             expect(res.status).to.equal(200);
-//             expect(res.body.username).to.equal(this.tempUser.username);
-//             expect(Boolean(res.body._id)).to.equal(true);
-//             done();
-//           });
-//         });
-//         it('should return a 404 status code on a bad request', done => {
-//           superagent.get(`${baseUrl}/api/dev/${this.tempUser.badID}`)
-//           .set('Authorization', `Bearer ${this.tempToken}`)
-//           .end((err, res) => {
-//             expect(res.status).to.equal(404);
-//             done();
-//           });
-//         });
-//       });
-//     });
-//   });
-//
-//
-//   // describe('POST routes', function() {
-//   //   describe('a request to /api/dev', function() {
-//   //     it('should return a 200 status code on a good request', done => {
-//   //       chai.request(server)
-//   //       .post('/api/signup')
-//   //       .send({username: mockDev.username, password: '1234', email: 'hi@hi.com'})
-//   //       .end((err, res) => {
-//   //         // if(err) console.error(err);
-//   //         expect(res.status).to.equal(200);
-//   //         done();
-//   //       });
-//   //     });
-//   //     it('should return a 400 status code given an invalid body or no body', done => {
-//   //       chai.request(server)
-//   //       .post('/api/signup')
-//   //       .send()
-//   //       .end((err, res) => {
-//   //         // if(err) console.error(err);
-//   //         expect(res.status).to.equal(400);
-//   //         done();
-//   //       });
-//   //     });
-//   //   });
-//   // });
-//   //
-//   // describe('DELETE routes', function() {
-//   //   describe('a request to /api/dev/:id', function() {
-//   //     it('should return a 204 status code on a good request', done => {
-//   //       chai.request(server)
-//   //       .delete(`/api/dev/${mockDev.userID}`)
-//   //       .end((err, res) => {
-//   //         if(err) console.log(err);
-//   //         expect(res.status).to.equal(204);
-//   //         done();
-//   //       });
-//   //     });
-//   //     it('should return a 404 status code given an invalid id', done => {
-//   //       chai.request(server)
-//   //       .delete(`/api/dev/${mockDev.userID}`)
-//   //       .end((err, res) => {
-//   //         if(err) console.log(err);
-//   //         expect(res.status).to.equal(404);
-//   //         done();
-//   //       });
-//   //     });
-//   //   });
-//   // });
-// });
+'use strict';
+
+const expect = require('chai').expect;
+const superagent = require('superagent');
+const User = require('../model/user.js');
+const Dev = require('../model/dev.js');
+const userMocks = require('./lib/mock-user.js');
+const devMocks = require('./lib/mock-dev.js');
+const serverControl = require('./lib/server-control.js');
+
+const baseURL = `http://localhost:${process.env.PORT}`;
+
+describe('testing dev-router', function(){
+  before(serverControl.startServer);
+  after(serverControl.killServer);
+  afterEach((done) => {
+    User.remove({})
+    .then(() => done())
+    .catch((err) => {
+      console.log(err);
+      done();
+    });
+  });
+
+  describe('testing POST /api/dev', function(){
+    it('should respond with a 200 on good request', function(done){
+      superagent.post(`${baseURL}/api/dev`)
+      .send({userMocks})
+      .then(res => {
+        expect(res.status).to.equal(200);
+        done();
+      })
+      .catch(done);
+    });
+    it('should respond with a 400 if a field is missing', done => {
+      superagent.post(`${baseURL}/api/dev`)
+      .send({username: 'jimmy', password: 'secret'})
+      .then(done)
+      .catch(err => {
+        expect(err.status).to.equal(400);
+        done();
+      })
+      .catch(done);
+    });
+
+    it('should respond with a 404 given a bad endpoint', done => {
+      superagent.post(`${baseURL}/api/badEndpoint`)
+      .send({})
+      .then(done)
+      .catch(err => {
+        expect(err.status).to.equal(404);
+        done();
+      })
+      .catch(done);
+    });
+    it('should return a 400 error for improper signup', function(done){
+      superagent.post(`${baseURL}/api/dev`)
+      .send({
+        email: 'boats@boatsboats.com',
+        password: '1234',
+      })
+      .then(done)
+      .catch(err => {
+        expect(err.status).to.equal(400);
+        done();
+      });
+    });
+  });
+  // describe('testing GET /api/devlist', function(){
+  //   beforeEach(devMocks.bind(this));
+  //
+  //   it('should respond with a 200 status code on good request', (done) => {
+  //     superagent.get(`${baseURL}/api/devlist`)
+  //     .auth(this.username)
+  //     .then(res => {
+  //       expect(res.status).to.equal(200);
+  //       done();
+  //     })
+  //     .catch(done);
+  //   });
+  //   it('should respond with a 404 status code on bad request', (done) => {
+  //     superagent.get(`${baseURL}/api/badlogin`)
+  //     .auth(this.tempUser.username, '1234')
+  //     .then(done)
+  //     .catch(err => {
+  //       expect(err.status).to.equal(404);
+  //       done();
+  //     })
+  //     .catch(done);
+  //   });
+  // });
+});
