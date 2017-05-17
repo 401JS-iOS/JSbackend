@@ -16,6 +16,7 @@ const authRoutes = require('./route/auth-router')(router);
 const npoRoutes = require('./route/npo-router')(router);
 const devRoutes = require('./route/dev-router')(router);
 const projectRoutes = require('./route/project-router')(router);
+const reviewRoutes = require('./route/review-router')(router);
 
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/devolunteer';
@@ -31,5 +32,6 @@ app.use('/api', authRoutes);
 app.use('/api', npoRoutes);
 app.use('/api', devRoutes);
 app.use('/api', projectRoutes);
+app.use('/api', reviewRoutes);
 
 app.listen(PORT,() => console.log(`Listening on PORT ${PORT}`));

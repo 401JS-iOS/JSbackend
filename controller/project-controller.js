@@ -7,7 +7,7 @@ const Promise = require('bluebird');
 module.exports = exports = {};
 
 exports.createProject = function(req) {
-  //console.log('req', req);
+  //console.log('this is the request', req);
   // req.userID = user._id;
 
   return Npo.findById(req.params.id)
@@ -16,7 +16,7 @@ exports.createProject = function(req) {
       userID: req.user._id,
       npoID: req.params.id,
       service: req.body.service,
-      description: req.body.description,
+      desc: req.body.desc,
     };
     return new Project(projData).save();
     //console.log('this is the project instance', projectInstance);

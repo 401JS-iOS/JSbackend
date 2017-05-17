@@ -9,15 +9,16 @@ let projectSchema = mongoose.Schema({
   service: {type: String},
   devs: [{type: mongoose.Schema.Types.ObjectId, ref: 'devs'}],
   reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'reviews'}],
-  description: {type: String},
+  desc: {type: String},
 });
+
 projectSchema.pre('save', function(next) {
   Npo.findById(this.npoID)
   .then(npo => {
-    npo.projects.push(this._id.toString())
-    return npo.save()
+    npo.projects.push(this._id.toString());
+    return npo.save();
   })
   .then(() => next())
-  .catch(next)
-})
+  .catch(next);
+});
 module.exports = mongoose.model('project', projectSchema);

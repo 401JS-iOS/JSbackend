@@ -12,7 +12,7 @@ module.exports = function(router) {
     .catch(err => res.status(err));
   });
 
-  router.get('/npo/:id/projectlist', (req, res) => {
+  router.get('/projectlist', (req, res) => {
     projectController.fetchAllProjects()
     .then(proj => res.json(proj))
     .catch(err => res.status(err.status).send(err.message));
@@ -22,18 +22,18 @@ module.exports = function(router) {
     //if(!req.user.isNpo) return next(createError(401, 'please log in as a npoelopr'));
 
     projectController.fetchProject(req.params.id)
-    .then(npo => {
-      if(npo.userID.toString() !== req.user._id.toString()) {
-        return createError(401, 'Invalid User ID');
+    .then(proj => {
+      if(proj.userID.toString() !== req.user._id.toString()) {
+        return createError(401, 'Invalid ID');
       }
-      res.json(npo);
+      res.json(proj);
     })
     .catch(err => res.status(err.status).send(err.message));
   });
 
   router.put('/npo/:id/project/:id', bearerAuth, (req, res) => {
     projectController.updateProject(req, res, req.params.id)
-    .then(npo => res.json(npo))
+    .then(proj => res.json(proj))
     .catch(err => res.status(err.status).send(err.message));
   });
 
