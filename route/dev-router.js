@@ -44,11 +44,32 @@ module.exports = function(router) {
   });
 
   router.put('/dev/:id/project/:id', bearerAuth, (req, res) => {
-    devController.updateDev(req, res, req.params.id)
+    let devProj = [];
+
+    projController.fetchAllProjects()
     .then(proj => {
-      let startProj = projController.fetchProject(req.params.id);
-      console.log('startProj', startProj);
-      proj.projects.push(startProj);
+      devProj.push(proj);
+    })
+    .catch(err => res.status(err.status).send(err.message));
+
+    let devId = req.url.split('/');
+    let updDevProj = [];
+
+    devController.fetchDev(devId[2])
+    .then(dev => {
+      updDevProj.push(dev);
+
+      res.json(dev);
+    });
+
+    devController.updateDev(req, res, devId[2])
+    .then(dev => {
+      console.log('devProj', devProj[0]);
+      console.log('dev', dev);
+
+      dev.projects.push(devProj[0]);
+
+      // res.json(dev);
     })
     .catch(err => res.status(err.status).send(err.message));
   });
