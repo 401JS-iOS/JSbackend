@@ -10,7 +10,7 @@ const errorHandler = require('./lib/error-midd');
 const bodyParser = require('body-parser').json();
 const mongoose = require('mongoose');
 
-const app = module.exports = express();
+const app = express();
 const router = express.Router();
 const authRoutes = require('./route/auth-router')(router);
 const npoRoutes = require('./route/npo-router')(router);
@@ -30,4 +30,9 @@ app.use('/api', authRoutes);
 app.use('/api', npoRoutes);
 app.use('/api', devRoutes);
 
-app.listen(PORT,() => console.log(`Listening on PORT ${PORT}`));
+const server = app.listen(process.env.PORT, () => {
+  console.log(`Listening on PORT ${PORT}`);
+});
+
+server.isOn = true;
+module.exports = server;
