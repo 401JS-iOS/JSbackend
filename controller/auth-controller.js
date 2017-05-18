@@ -2,6 +2,7 @@
 
 const Promise = require('bluebird');
 const User = require('../model/user');
+const createError = require('http-errors');
 
 module.exports = exports = {};
 
@@ -20,7 +21,7 @@ exports.createUser = function(req, res) {
 };
 
 exports.fetchUser = function(res, auth) {
-  if(!auth) return Promise.reject(console.error('auth required'));
+  if(!auth) return Promise.reject(createError(401, 'auth required'));
 
   return User.findOne({username: auth.username})
   .then(user => user.comparePasswordHash(auth.password))
