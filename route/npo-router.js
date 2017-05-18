@@ -1,4 +1,5 @@
 'use strict';
+
 const bearerAuth = require('../lib/bearer-auth-midd.js');
 const createError = require('http-errors');
 const npoController = require('../controller/npo-controller');

@@ -1,10 +1,15 @@
 'use strict';
 
+
+const superagent = require('superagent');
+const devMocks = require('./lib/mock-dev');
+const serverControl = require('./lib/server-control');
 const expect = require('chai').expect;
 // const request = require('superagent');
 const mongoose = require('mongoose');
 const Promise = require('bluebird');
-// con  st User = require('../model/user');
+const User = require('../model/user');
+const Dev =require('../model/dev');
 const server = require('../server');
 const chai = require('chai');
 const http = require('chai-http');
@@ -27,6 +32,9 @@ module.exports = token;
 
 describe('=================================================\n  server - test\n  =================================================\n',
 function() {
+  before(serverControl.startServer);
+  after(serverControl.killServer);
+
   let userObj = [];
 
 
@@ -158,10 +166,6 @@ describe('Auth Routes', function() {
 });
 
 // const expect = require('chai').expect;
-const superagent = require('superagent');
-// const User = require('../model/user');
-const devMocks = require('./lib/mock-dev');
-const serverControl = require('./lib/server-control');
 // const Dev = require('../model/dev.js');
 // const userMocks = require('./lib/mock-user.js');
 // const token = require('./auth-routes-test');
@@ -176,16 +180,23 @@ const baseURL = `http://localhost:${process.env.PORT}`;
 
 describe('=================================================\n  testing dev-router\n  =================================================\n',
 function(){
+
   before(serverControl.startServer);
   after(serverControl.killServer);
-  // after((done) => {
-  //   User.remove({})
-  //   .then(() => done())
-  //   .catch((err) => {
-  //     console.log(err);
-  //     done();
-  //   });
-  // });
+
+  after(done => {
+    User.remove({})
+    .then(() => done)
+    .catch(done);
+    done();
+  });
+
+  after(done => {
+    Dev.remove({})
+    .then(() => done)
+    .catch(done);
+    done();
+  });
 
   describe('testing POST /api/dev', function(){
     let results = [];
@@ -217,7 +228,8 @@ function(){
       })
       // .set('Content-Type', 'application/json')
       .then(res => {
-        console.log('res', res.text);
+        console.log(res.status, res.body);
+        expect(res).to.have.status(200);
 
       })
       .catch(err => {
