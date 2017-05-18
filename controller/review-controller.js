@@ -18,7 +18,6 @@ exports.createReview = function(req) {
       desc: req.body.desc,
       stars: req.body.stars,
       date: req.body.dateStart,
-      
     };
     console.log('req.body', req.body);
     return new Review(reviewData).save();
