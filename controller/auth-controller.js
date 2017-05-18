@@ -17,7 +17,7 @@ exports.createUser = function(req, res) {
   return newUser.generatePasswordHash(tempPassword)
   .then(user => user.save())
   .then(user => user.generateToken())
-   .catch(err => res.status(err.status).send(err.message));
+  .catch(err => res.status(err.status).send(err.message));
 };
 
 exports.fetchUser = function(res, auth) {
@@ -33,5 +33,5 @@ exports.fetchUser = function(res, auth) {
 exports.deleteUser = function(req,res, id) {
   User.findByIdAndRemove(id)
   .then(() => res.status(204).send())
-  .catch(err => res.send(err));
+  .catch(err => res.send(err.message));
 };

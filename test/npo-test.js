@@ -4,14 +4,13 @@
 const expect = require('chai').expect;
 const superagent = require('superagent');
 const User = require('../model/user');
-const devMocks = require('./lib/mock-dev');
+const npoMocks = require('./lib/mock-npo');
 const serverControl = require('./lib/server-control');
-// const Dev = require('../model/dev.js');
-// const userMocks = require('./lib/mock-user.js');
 
 const baseURL = `http://localhost:${process.env.PORT}`;
 
-describe('=================================================\n  testing dev-router\n  =================================================\n',
+describe('=================================================\n  testing npo-routes\n  =================================================\n',
+
 function(){
   before(serverControl.startServer);
   after(serverControl.killServer);
@@ -19,15 +18,15 @@ function(){
     User.remove({})
     .then(() => done())
     .catch((err) => {
-      console.log(err);
+      console.log(err.message);
       done();
     });
   });
 
-  describe('testing POST /api/dev', function(){
+  describe('testing POST /api/npo', function(){
     it('should respond with a 200 on good request', function(done){
-      // superagent.post(`${baseURL}/api/dev`)
-      // .send({devMocks})
+      // superagent.post(`${baseURL}/api/npo`)
+      // .send({npoMocks})
       // .then(done)
       // .catch(done);
       done();
@@ -36,8 +35,8 @@ function(){
     let results = [];
 
     it('should respond with a 401 if a field is missing', done => {
-      superagent.post(`${baseURL}/api/dev`)
-      .send({devMocks})
+      superagent.post(`${baseURL}/api/npo`)
+      .send({npoMocks})
       .then(done)
       .catch(err => {
         console.log('err.error', err.message);
@@ -67,7 +66,7 @@ function(){
     });
 
     it('should return a 401 error for improper signup', function(done){
-      superagent.post(`${baseURL}/api/dev`)
+      superagent.post(`${baseURL}/api/npo`)
       .send({})
       .then(done)
       .catch(err => {
@@ -86,12 +85,12 @@ function(){
     });
   });
 
-  describe('testing GET /api/devlist', function(){
-    beforeEach(devMocks.bind(this));
+  describe('testing GET /api/npolist', function(){
+    beforeEach(npoMocks.bind(this));
     let results = [];
 
     it('should respond with a 200 status code on good request', (done) => {
-      superagent.get(`${baseURL}/api/devlist`)
+      superagent.get(`${baseURL}/api/npolist`)
       .auth(`${this.username}:${this.password}`)
       .then(res => {
         expect(res.status).to.equal(200);

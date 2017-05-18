@@ -15,4 +15,4 @@ addons:
 sudo: required
 before_script: npm i -g eslint mocha
 script:
-  - npm run test
+  - npm run cover

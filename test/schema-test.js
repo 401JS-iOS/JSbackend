@@ -38,130 +38,197 @@ const exReview = {
   desc: 'exellent',
 };
 
-describe('Dev model', () => {
-  let newDev = new Dev(exDev);
+describe('=================================================\n  schema test\n  =================================================\n',
+function() {
+  describe('Dev model', function() {
+    let newDev = new Dev(exDev);
 
-  describe('Dev properties entered', function() {
-    it('should make a new dev', done => {
-      expect(newDev).to.exist;
-      console.log('newdev' + newDev);
-      done();
+    describe('Dev properties entered', function() {
+      it('should make a new dev', done => {
+        expect(newDev).to.exist;
+        console.log('newdev' + newDev);
+        done();
+      });
+
+      it('should have title property equal to value entered', done => {
+        expect(newDev.username).to.equal('bobby');
+        done();
+      });
+
+      it('should have languages property', done => {
+        expect(newDev).to.have.property('languages');
+        done();
+      });
+
+      it('should have websites property', done => {
+        expect(newDev).to.have.property('websites');
+        done();
+      });
     });
 
-    it('should have title property equal to value entered', done => {
-      expect(newDev.username).to.equal('bobby');
-      done();
-    });
+    describe('Dev auto properties', function() {
 
-    it('should have languages property', done => {
-      expect(newDev).to.have.property('languages');
-      done();
-    });
+      it('should add services', done => {
 
-    it('should have websites property', done => {
-      expect(newDev).to.have.property('websites');
-      done();
+        expect(newDev).to.have.property('services');
+        done();
+      });
+
+      it('should add projects', done => {
+
+        expect(newDev).to.have.property('projects');
+        done();
+      });
+
+      it('should add _id', done => {
+
+        expect(newDev).to.have.property('_id');
+        done();
+      });
+    });
+  });
+
+
+  describe('User model', function() {
+    let newUser = new User(exUser);
+
+    describe('user properties', function() {
+
+      it('should make a new user object', done => {
+        expect(newUser).to.exist;
+        console.log('newUser' + newUser);
+        done();
+      });
+
+      it('should have username', done => {
+        expect(newUser).to.have.property('username');
+        done();
+      });
+
+      it('should have id', done => {
+        expect(newUser).to.have.property('_id');
+        done();
+      });
+
+      it('should have email', done => {
+        expect(newUser).to.have.property('email');
+        done();
+      });
+
+      it('should have password', done => {
+        expect(newUser).to.have.property('password');
+        done();
+
+      });
+
+      it('should have isDev', done => {
+        expect(newUser).to.have.property('isDev');
+        done();
+      });
     });
   });
 
-  describe('Dev auto properties', function() {
+  describe('Project model', function() {
+    let newProject = new Project(exProject);
 
-    it('should add services', done => {
+    describe('project properties', function() {
 
-      expect(newDev).to.have.property('services');
-      done();
-    });
+      it('should make a new user object', done => {
+        expect(newProject).to.exist;
+        console.log('newProject' + newProject);
+        done();
+      });
 
-    it('should add projects', done => {
+      it('should have service', done => {
+        expect(newProject).to.have.property('service');
+        done();
+      });
 
-      expect(newDev).to.have.property('projects');
-      done();
-    });
+      it('should have description', done => {
+        expect(newProject).to.have.property('desc');
+        done();
+      });
 
-    it('should add _id', done => {
+      it('should have reviews', done => {
+        expect(newProject).to.have.property('reviews');
+        done();
+      });
 
-      expect(newDev).to.have.property('_id');
-      done();
-    });
-  });
-});
-
-describe('User model', function() {
-  let newUser = new User(exUser);
-
-  describe('user properties', function() {
-
-    it('should make a new user object', done => {
-      expect(newUser).to.exist;
-      console.log('newUser' + newUser);
-      done();
-    });
-  });
-});
-
-// userID: {type: mongoose.Schema.Types.ObjectId, ref: 'users'},
-// npoID: {type: mongoose.Schema.Types.ObjectId, ref: 'npos'},
-// service: {type: String},
-// dev: {type: mongoose.Schema.Types.ObjectId, ref: 'devs'},
-// reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'reviews'}],
-// desc: {type: String},
-// projStatus: {type: String},
-// dateStart: {type: Date},
-// dateEnd: {type: Date},
-
-describe('Project model', function() {
-  let newProject = new Project(exProject);
-
-  describe('user properties', function() {
-
-    it('should make a new user object', done => {
-      expect(newProject).to.exist;
-      console.log('newProject' + newProject);
-      done();
+      it('should have id', done => {
+        expect(newProject).to.have.property('_id');
+        done();
+      });
     });
   });
-});
 
-// userID: {type: mongoose.Schema.Types.ObjectId, ref: 'users' },
-// username: {type: String, ref: 'users'},
-// org: {type: String, required: true, unique: true}, //organization name
-// city: {type: String},
-// state: {type: String},
-// phone: {type: String},
-// email: {type: String},
-// profilePic: {type: String},
-// websites: [{type: String}],
-// projects
+  describe('Npo model', function() {
+    let newNpo = new Npo(exNpo);
 
-describe('Npo model', function() {
-  let newNpo = new Npo(exNpo);
+    describe('user properties', function() {
 
-  describe('user properties', function() {
+      it('should make a new user object', done => {
+        expect(newNpo).to.exist;
+        console.log('newNpo' + newNpo);
+        done();
+      });
 
-    it('should make a new user object', done => {
-      expect(newNpo).to.exist;
-      console.log('newNpo' + newNpo);
-      done();
+      it('should have username', done => {
+        expect(newNpo).to.have.property('username');
+        done();
+      });
+
+      it('should have org', done => {
+        expect(newNpo).to.have.property('org');
+        done();
+      });
+
+      it('should have id', done => {
+        expect(newNpo).to.have.property('_id');
+        done();
+      });
+
+      it('should have projects', done => {
+        expect(newNpo).to.have.property('projects');
+        done();
+      });
+
+      it('should have websites', done => {
+        expect(newNpo).to.have.property('websites');
+        done();
+      });
     });
   });
-});
 
-// projectID: {type: mongoose.Schema.Types.ObjectId, ref: 'projects' },
-// devID: {type: mongoose.Schema.Types.ObjectId, ref: 'devs' },
-// npoID: {type: mongoose.Schema.Types.ObjectId, ref: 'npos'},
-// stars: {type: Number, min:0, max: 5},
-// desc: {type: String},
-// date: {type: Date, default: Date.now, required: true},
+  describe('Review model', function() {
+    let newReview = new Review(exReview);
 
-describe('Review model', function() {
-  let newReview = new Review(exReview);
+    describe('user properties', function() {
 
-  describe('user properties', function() {
+      it('should make a new user object', done => {
+        expect(newReview).to.exist;
+        console.log('newReview' + newReview);
+        done();
+      });
 
-    it('should make a new user object', done => {
-      expect(newReview).to.exist;
-      console.log('newReview' + newReview);
-      done();
+      it('should have id', done => {
+        expect(newReview).to.have.property('_id');
+        done();
+      });
+
+      it('should have stars', done => {
+        expect(newReview).to.have.property('stars');
+        done();
+      });
+
+      it('should have desc', done => {
+        expect(newReview).to.have.property('desc');
+        done();
+      });
+
+      it('should have date', done => {
+        expect(newReview).to.have.property('date');
+        done();
+      });
     });
   });
 });
