@@ -8,7 +8,7 @@ serverControl.startServer = function(done) {
   if(!server.isOn){
     server.listen(process.env.PORT, () => {
       server.isOn = true;
-      console.log(`Listening on PORT ${PORT}`);
+      // console.log(`Listening on PORT ${PORT}`);
       done();
     });
     return;

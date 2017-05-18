@@ -96,6 +96,32 @@ describe('User model', function() {
       console.log('newUser' + newUser);
       done();
     });
+
+    it('should have username', done => {
+      expect(newUser).to.have.property('username');
+      done();
+    });
+
+    it('should have id', done => {
+      expect(newUser).to.have.property('_id');
+      done();
+    });
+
+    it('should have email', done => {
+      expect(newUser).to.have.property('email');
+      done();
+    });
+
+    it('should have password', done => {
+      expect(newUser).to.have.property('password');
+      done();
+
+    });
+
+    it('should have isDev', done => {
+      expect(newUser).to.have.property('isDev');
+      done();
+    });
   });
 });
 
@@ -112,11 +138,31 @@ describe('User model', function() {
 describe('Project model', function() {
   let newProject = new Project(exProject);
 
-  describe('user properties', function() {
+  describe('project properties', function() {
 
     it('should make a new user object', done => {
       expect(newProject).to.exist;
       console.log('newProject' + newProject);
+      done();
+    });
+
+    it('should have service', done => {
+      expect(newProject).to.have.property('service');
+      done();
+    });
+
+    it('should have description', done => {
+      expect(newProject).to.have.property('desc');
+      done();
+    });
+
+    it('should have reviews', done => {
+      expect(newProject).to.have.property('reviews');
+      done();
+    });
+
+    it('should have id', done => {
+      expect(newProject).to.have.property('_id');
       done();
     });
   });
@@ -141,6 +187,31 @@ describe('Npo model', function() {
     it('should make a new user object', done => {
       expect(newNpo).to.exist;
       console.log('newNpo' + newNpo);
+      done();
+    });
+
+    it('should have username', done => {
+      expect(newNpo).to.have.property('username');
+      done();
+    });
+
+    it('should have org', done => {
+      expect(newNpo).to.have.property('org');
+      done();
+    });
+
+    it('should have id', done => {
+      expect(newNpo).to.have.property('_id');
+      done();
+    });
+
+    it('should have projects', done => {
+      expect(newNpo).to.have.property('projects');
+      done();
+    });
+
+    it('should have websites', done => {
+      expect(newNpo).to.have.property('websites');
       done();
     });
   });
