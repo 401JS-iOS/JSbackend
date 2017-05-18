@@ -24,7 +24,7 @@ module.exports = function(router) {
 
   });
 
-  router.get('/dev/:id', bearerAuth, (req, res) => {
+  router.get('/dev/:id', (req, res) => {
     //if(!req.user.isDev) return next(createError(401, 'please log in as a developr'));
 
     devController.fetchDev(req.params.id, res)
