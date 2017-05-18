@@ -3,6 +3,8 @@
 const Project = require('../model/project');
 const Npo = require('../model/npo');
 const Promise = require('bluebird');
+//const Dev = require('../model/dev');
+//const mongoose = require('mongoose');
 
 module.exports = exports = {};
 
@@ -51,3 +53,23 @@ exports.deleteProject = function(req,res, id) {
   .then(() => res.status(204).send())
   .catch(err => res.send(err));
 };
+
+// exports.findDevAndUpdateProject = function(req, res, id) {
+//   let foundDev = Dev.findById(req.params.id);
+//   console.log('this is found dev', foundDev);
+//   let devProject = Project.findById(id);
+//   devProject.dev = foundDev._id;
+//   console.log('this is the devproject something', devProject.dev);
+//   console.log('this is the found dev something', foundDev._id);
+//   return devProject;
+//   // let foundDevId;
+//   // Dev.findById(req.params.id);
+//   //   foundDevId = ;
+//   //   let devProject = Project.findById(id);
+//   //   console.log('this is the devProject', devProject);
+//   //   console.log('this is the found dev id', foundDevId);
+//   //   devProject.dev = foundDevId._id;
+//   //   return devProject;
+//   //
+//   //.catch(err => res.status(err.status).send(err.message));
+// };
