@@ -7,18 +7,20 @@ const Promise = require('bluebird');
 module.exports = exports = {};
 
 exports.createReview = function(req) {
-  console.log('req', req);
+  // console.log('req', req);
   // req.userID = user._id;
 
   return Project.findById(req.params.id)
   .then(() => {
     let reviewData = {
-      userID: req.user._id,
       projectID: req.params.id,
+      npoID: req.user._id,
       desc: req.body.desc,
+      stars: req.body.stars,
+      date: req.body.dateStart,
     };
+    console.log('req.body', req.body);
     return new Review(reviewData).save();
-    //console.log('this is the project instance', projectInstance);
   })
   .then(review => review)
   .catch(err => Promise.reject(err.message));

@@ -22,5 +22,9 @@ module.exports = function(router) {
     .then(token => res.json(token))
     .catch(err => res.status(res.status).send(err));
   });
+
+  router.delete('/user/:id', basicAuth, (req, res) => {
+    authCntrl.deleteUser(req, res, req.params.id);
+  });
   return router;
 };

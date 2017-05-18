@@ -12,7 +12,7 @@ module.exports = function(router) {
     .catch(err => res.status(err));
   });
 
-  router.get('/npo/:id/project/reviewlist', (req, res) => {
+  router.get('/project/:id/reviewlist', (req, res) => {
     reviewController.fetchAllReviews()
     .then(review => res.json(review))
     .catch(err => res.status(err.status).send(err.message));
