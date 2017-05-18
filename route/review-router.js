@@ -18,7 +18,7 @@ module.exports = function(router) {
     .catch(err => res.status(err.status).send(err.message));
   });
 
-  router.get('/npo/:id/project/:id/review/:id', bearerAuth, (req, res) => {
+  router.get('/npo/:id/project/:id/review/:id', (req, res) => {
     //if(!req.user.isNpo) return next(createError(401, 'please log in as a npoelopr'));
 
     reviewController.fetchReview(req.params.id)

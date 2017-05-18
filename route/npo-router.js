@@ -22,7 +22,7 @@ module.exports = function(router) {
 
   });
 
-  router.get('/npo/:id', bearerAuth, (req, res) => {
+  router.get('/npo/:id', (req, res) => {
     //if(!req.user.isNpo) return next(createError(401, 'please log in as a npoelopr'));
 
     npoController.fetchNpo(req.params.id)
