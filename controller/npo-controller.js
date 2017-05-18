@@ -34,5 +34,5 @@ exports.updateNpo = function(req, res, id) {
 exports.deleteNpo = function(req,res, id) {
   Npo.findByIdAndRemove(id)
   .then(() => res.status(204).send())
-  .catch(err => res.send(err));
+  .catch(err => res.send(err.message));
 };

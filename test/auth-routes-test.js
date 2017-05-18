@@ -9,9 +9,6 @@ const server = require('../server');
 const chai = require('chai');
 const http = require('chai-http');
 
-// const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/test-dev';
-
-
 require('../server.js');
 mongoose.Promise = Promise;
 
@@ -26,7 +23,8 @@ const exampleUser = {
 chai.use(http);
 
 let token = [];
-describe('server - test', function() {
+describe('=================================================\n  server - test\n  =================================================\n', 
+function() {
   let userObj = [];
 
 
@@ -83,8 +81,6 @@ describe('Auth Routes', function() {
         request.post(`${url}/api/signup `)
         .send(exampleUser)
         .end((err, res) => {
-          // console.log('request', request.post, 'req');
-          // console.log('res', res);
           if (err) return done(err);
           console.log('\ntoken:', res.text, '\n');
           expect(res.status).to.equal(200);

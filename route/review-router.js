@@ -9,7 +9,7 @@ module.exports = function(router) {
 
     reviewController.createReview(req)
     .then(review => res.json(review))
-    .catch(err => res.status(err));
+    .catch(err => res.status(err.status).send(err.message));
   });
 
   router.get('/project/:id/reviewlist', (req, res) => {

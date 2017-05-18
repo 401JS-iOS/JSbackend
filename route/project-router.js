@@ -9,7 +9,7 @@ module.exports = function(router) {
 
     projectController.createProject(req)
     .then(proj => res.json(proj))
-    .catch(err => res.status(err));
+    .catch(err => res.status(err.status).send(err.message));
   });
 
   router.get('/projectlist', (req, res) => {

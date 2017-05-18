@@ -11,7 +11,7 @@ module.exports = function(router) {
 
     authCntrl.createUser(req, res, req.body)
     .then(token => res.json(token))
-    .catch(err => res.status(400).send(err));
+    .catch(err => res.status(400).send(err.message));
   });
 
   router.get('/signin', basicAuth, (req, res) => {
@@ -20,7 +20,7 @@ module.exports = function(router) {
     console.log(req.auth);
     authCntrl.fetchUser(res, req.auth)
     .then(token => res.json(token))
-    .catch(err => res.status(res.status).send(err));
+    .catch(err => res.status(res.status).send(err.message));
   });
 
   router.delete('/user/:id', basicAuth, (req, res) => {

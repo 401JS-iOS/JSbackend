@@ -51,7 +51,7 @@ exports.updateProject = function(req, res, id) {
 exports.deleteProject = function(req,res, id) {
   Project.findByIdAndRemove(id)
   .then(() => res.status(204).send())
-  .catch(err => res.send(err));
+  .catch(err => res.send(err.message));
 };
 
 // exports.findDevAndUpdateProject = function(req, res, id) {
