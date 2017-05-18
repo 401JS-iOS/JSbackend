@@ -28,3 +28,9 @@ exports.fetchUser = function(res, auth) {
   .catch(err => res.status(err.status).send(err.message));
 
 };
+
+exports.deleteUser = function(req,res, id) {
+  User.findByIdAndRemove(id)
+  .then(() => res.status(204).send())
+  .catch(err => res.send(err));
+};

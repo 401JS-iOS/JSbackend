@@ -41,5 +41,11 @@ module.exports = function(router) {
     projectController.deleteProject(req, res, req.params.id);
   });
 
+  router.put('/npo/:id/project/:id/devproject', bearerAuth, (req, res) => {
+    projectController.findDevAndUpdateProject(req, res)
+    .then(proj => res.json(proj))
+    //.catch(err => res.status(err.status).send(err.message));
+  });
+
   return router;
 };
