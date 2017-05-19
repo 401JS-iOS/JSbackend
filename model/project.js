@@ -15,8 +15,6 @@ let projectSchema = mongoose.Schema({
   dateEnd: {type: Date},
 });
 
-
-
 projectSchema.pre('save', function(next) {
   Npo.findById(this.npoID)
   .then(npo => {

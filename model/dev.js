@@ -1,7 +1,6 @@
 'use strict';
 
 const mongoose = require('mongoose');
-// const Dev = require('../model/dev');
 
 //Dev user model
 let devSchema = mongoose.Schema({
@@ -19,13 +18,4 @@ let devSchema = mongoose.Schema({
   projects: [{type: mongoose.Schema.Types.ObjectId, ref: 'projects' }],
 });
 
-// devSchema.pre('save', function(next) {
-//   Dev.findById(this.devID)
-//   .then(dev => {
-//     dev.projects.push(this._id.toString());
-//     return dev.save();
-//   })
-//   .then(() => next())
-//   .catch(next);
-// });
 module.exports = mongoose.model('devs', devSchema);

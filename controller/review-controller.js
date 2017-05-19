@@ -7,8 +7,6 @@ const Promise = require('bluebird');
 module.exports = exports = {};
 
 exports.createReview = function(req) {
-  // console.log('req', req);
-  // req.userID = user._id;
 
   return Project.findById(req.params.id)
   .then(() => {

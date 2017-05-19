@@ -25,7 +25,6 @@ module.exports = function(router) {
   });
 
   router.get('/npo/:id/project/:id', (req, res) => {
-    //if(!req.user.isNpo) return next(createError(401, 'please log in as a npoelopr'));
 
     projectController.fetchProject(req.params.id)
     .then(proj => {
@@ -46,12 +45,6 @@ module.exports = function(router) {
   router.delete('/npo/:id/project/:id', bearerAuth, (req, res) => {
     projectController.deleteProject(req, res, req.params.id);
   });
-
-  // router.put('/npo/:id/project/:id/devproject', bearerAuth, (req, res) => {
-  //   projectController.findDevAndUpdateProject(req, res)
-  //   .then(proj => res.json(proj))
-  //   //.catch(err => res.status(err.status).send(err.message));
-  // });
 
   return router;
 };
