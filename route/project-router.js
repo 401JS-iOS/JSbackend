@@ -9,13 +9,19 @@ module.exports = function(router) {
 
     projectController.createProject(req)
     .then(proj => res.json(proj))
-    .catch(err => res.status(err.status).send(err.message));
+    .catch(err => res.status(err));
   });
 
   router.get('/projectlist', (req, res) => {
     projectController.fetchAllProjects()
     .then(proj => res.json(proj))
     .catch(err => res.status(err.status).send(err.message));
+  });
+
+  router.get('/npo/:id/projects', (req, res) => {
+    projectController.fetchNpoProjects(req.params.id)
+    .then(proj => res.json(proj))
+    .catch(err => res.status(err.stauts).send(err.message));
   });
 
   router.get('/npo/:id/project/:id', (req, res) => {

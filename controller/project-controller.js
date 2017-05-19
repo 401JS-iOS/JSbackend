@@ -36,6 +36,12 @@ exports.fetchProject = function(id, res) {
   .catch(err => res.status(err.status).send(err.message));
 };
 
+exports.fetchNpoProjects = function(id, res) {
+  return Project.find().where({npoID: id})
+  .then(proj => proj)
+  .catch(err => res.status(err.status).send(err.message));
+};
+
 exports.updateProject = function(req, res, id) {
   return Project.findByIdAndUpdate(id, req.body, {new:true})
   .then(proj => proj)
