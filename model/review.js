@@ -3,8 +3,6 @@
 const mongoose = require('mongoose');
 const Project = require('./project');
 
-// let createError = require('http-errors')
-
 //review model will be used for npos and devs
 let reviewSchema = mongoose.Schema({
   projectID: {type: mongoose.Schema.Types.ObjectId, ref: 'projects' },

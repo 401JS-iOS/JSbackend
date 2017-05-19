@@ -19,7 +19,6 @@ module.exports = function(router) {
   });
 
   router.get('/npo/:id/project/:id/review/:id', (req, res) => {
-    //if(!req.user.isNpo) return next(createError(401, 'please log in as a npoelopr'));
 
     reviewController.fetchReview(req.params.id)
     .then(review => {
