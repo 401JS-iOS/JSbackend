@@ -3,11 +3,8 @@
 
 const expect = require('chai').expect;
 const superagent = require('superagent');
-// const User = require('../model/user');
 const devMocks = require('./lib/mock-dev');
 const serverControl = require('./lib/server-control');
-// const Dev = require('../model/dev.js');
-// const userMocks = require('./lib/mock-user.js');
 const token = require('./auth-routes-test');
 
 const baseURL = `http://localhost:${process.env.PORT}`;
@@ -16,34 +13,9 @@ describe('=================================================\n  testing dev-route
 function(){
   before(serverControl.startServer);
   after(serverControl.killServer);
-  // after((done) => {
-  //   User.remove({})
-  //   .then(() => done())
-  //   .catch((err) => {
-  //     console.log(err);
-  //     done();
-  //   });
-  // });
 
   describe('testing POST /api/dev', function(){
     let results = [];
-
-    // before((done) => {
-    //   superagent.post(`${baseURL}/api/signup`)
-    //   .send({
-    //     username: 'boatsboats',
-    //     password: '1234',
-    //     email: 'boats@boatsboats.com',
-    //   })
-    //   .then(res => {
-    //     results.push(res.text);
-    //     console.log('this should be the token: ', results[0]);
-    //     // expect(res.status).to.equal(200);
-    //     // expect(Boolean(res.text)).to.equal(true);
-    //     done();
-    //   })
-    //   .catch(done);
-    // });
 
     it('should respond with a 200 on good request', function(done){
       console.log('token', token[0]);
