@@ -4,7 +4,6 @@ const bearerAuth = require('../lib/bearer-auth-midd.js');
 const createError = require('http-errors');
 const devController = require('../controller/dev-controller');
 
-//unauthed get all devs to pass to filtered dev list
 module.exports = function(router) {
   router.get('/devlist', (req, res) => {
     devController.fetchAllDevs()

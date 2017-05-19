@@ -160,15 +160,15 @@ function(){
     let results = [];
 
     it('should respond with a 200 status code on good request', (done) => {
-      superagent.get(`${baseURL}api/project/reviews`);
-      // superagent.get(`${baseURL}/npo/:id/project/:id/review/:id`)
-      // .auth(`${this.username}:${this.password}`)
-      // .then(res => {
-      //   console.log(res.status);
-      //   expect(res.status).to.equal(200);
-      done();
-      // })
-      // .catch(done);
+      superagent.get(`${baseURL}/api/reviewlist`)
+      .auth(`${this.username}:${this.password}`)
+      .then(res => {
+        console.log(res.status);
+
+        expect(res.status).to.equal(200);
+        done();
+      })
+      .catch(done);
     });
 
     it('should respond with a 404 status code on bad request', (done) => {
