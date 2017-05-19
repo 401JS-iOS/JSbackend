@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect;
 const superagent = require('superagent');
-// const Review = require('../model/review');
+const Review = require('../model/review');
 const reviewMocks = require('./lib/mock-review');
 const serverControl = require('./lib/server-control');
 
@@ -115,6 +115,41 @@ function(){
       expect(results[0]).to.equal('Not Found');
       results.pop();
       done();
+    });
+  });
+
+  describe('UPDATE review', function() {
+
+    describe('/api/npo/:id/review/:id', function() {
+      it('should return a 200 if successful', done => {
+        superagent.put(`${baseURL}/api/review`);
+
+        done();
+      });
+
+      it('should remove the record from the db', done => {
+
+        done();
+      });
+    });
+  });
+
+
+  describe('DELETE review', function() {
+
+    describe('/api/npo/:id/review/:id', function() {
+      it('should return a 200 if successful', done => {
+        Review.remove({})
+        .then(() => done)
+        .catch(done);
+
+        done();
+      });
+
+      it('should remove the record from the db', done => {
+
+        done();
+      });
     });
   });
 });

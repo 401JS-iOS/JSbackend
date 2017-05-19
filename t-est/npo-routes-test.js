@@ -74,6 +74,8 @@ function(){
   before(serverControl.startServer);
   after(serverControl.killServer);
 
+  let npoProf = [];
+
   describe('testing POST /api/npo', function(){
     let results = [];
 
@@ -87,7 +89,8 @@ function(){
         'Content-Type': 'application/json',
       })
       .end(res => {
-        console.log(res.status, res.body);
+        npoProf.push(res.body);
+        console.log('npoProf', npoProf[0]);
 
         expect(res).to.have.status(200);
       })
@@ -96,6 +99,28 @@ function(){
       });
       //
       done();
+    });
+
+    describe('UPDATE npo', function() {
+
+      describe('/api/npo/:id', function() {
+        it('should return a 200 if successful', done => {
+          superagent.put(`${baseURL}/api/npo/`);
+          // .set({
+          //   'Authorization': `Bearer ${token[0]}`,
+          //   'Content-Type': 'application/json',
+          // })
+          // .then(res => {
+          //   console.log(res.status);
+          // });
+          done();
+        });
+
+        it('should update the record in the db', done => {
+          
+          done();
+        });
+      });
     });
 
     describe('GET: /api/signin', function() {
@@ -200,6 +225,28 @@ function(){
       expect(results[0]).to.equal('Not Found');
       results.pop();
       done();
+    });
+  });
+
+  describe('DELETE npo', function() {
+
+    describe('/api/npo/:id', function() {
+      it('should return a 200 if successful', done => {
+        // superagent.delete(`${baseURL}/api/npo/${npoProf[0]._id}`)
+        // .set({
+        //   'Authorization': `Bearer ${token[0]}`,
+        //   'Content-Type': 'application/json',
+        // })
+        // .then(res => {
+        //   console.log(res.status);
+        // });
+        done();
+      });
+
+      it('should remove the record from the db', done => {
+
+        done();
+      });
     });
   });
 });

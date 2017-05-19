@@ -119,7 +119,7 @@ function(){
       .auth(`${this.username}:${this.password}`)
       .then(res => {
         console.log(res.status);
-        
+
         expect(res.status).to.equal(200);
         done();
       })
@@ -146,5 +146,40 @@ function(){
       results.pop();
       done();
     });
+
+    describe('UPDATE proj', function() {
+
+      describe('/api/npo/:id/project/:id', function() {
+        it('should return a 200 if successful', done => {
+          superagent.put(`${baseURL}/api/project`);
+
+          done();
+        });
+
+        it('should remove the record from the db', done => {
+
+          done();
+        });
+      });
+    });
   });
+
+  describe('DELETE proj', function() {
+
+    describe('/api/npo/:id/project/:id', function() {
+      it('should return a 200 if successful', done => {
+        Project.remove({})
+        .then(() => done)
+        .catch(done);
+
+        done();
+      });
+
+      it('should remove the record from the db', done => {
+
+        done();
+      });
+    });
+  });
+  // });
 });
