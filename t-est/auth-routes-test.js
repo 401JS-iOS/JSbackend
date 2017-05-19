@@ -28,13 +28,13 @@ const exampleUser = {
 chai.use(http);
 
 let token = [];
+let userObj = [];
 
 describe('=================================================\n  server - test\n  =================================================\n',
 function() {
   before(serverControl.startServer);
   after(serverControl.killServer);
 
-  let userObj = [];
 
   describe('/wrong endpoint', function() {
     it('should respond with a 404 on bad request', done => {
@@ -352,6 +352,28 @@ function(){
     describe('/api/dev/:id', function() {
       it('should return a 200 if successful', done => {
         superagent.delete(`${baseURL}/api/dev/${devProf[0]._id}`)
+        .set({
+          'Authorization': `Bearer ${token[0]}`,
+          'Content-Type': 'application/json',
+        })
+        .then(res => {
+          console.log(res.status);
+        });
+        done();
+      });
+
+      it('should remove the record from the db', done => {
+
+        done();
+      });
+    });
+  });
+
+  describe('DELETE user', function() {
+
+    describe('/api/user/:id', function() {
+      it('should return a 200 if successful', done => {
+        superagent.delete(`${baseURL}/api/user/${userObj[0]._id}`)
         .set({
           'Authorization': `Bearer ${token[0]}`,
           'Content-Type': 'application/json',

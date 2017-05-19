@@ -12,6 +12,12 @@ module.exports = function(router) {
     .catch(err => res.status(err.status).send(err.message));
   });
 
+  router.get('/reviewlist', (req, res) => {
+    reviewController.fetchAllReviews()
+    .then(proj => res.json(proj))
+    .catch(err => res.status(err.status).send(err.message));
+  });
+
   router.get('/project/:id/reviewlist', (req, res) => {
     reviewController.fetchAllReviews()
     .then(review => res.json(review))
