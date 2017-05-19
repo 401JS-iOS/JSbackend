@@ -7,8 +7,6 @@ const serverControl = require('./lib/server-control');
 const expect = require('chai').expect;
 const mongoose = require('mongoose');
 const Promise = require('bluebird');
-// const User = require('../model/user');
-// const Npo =require('../model/npo');
 const server = require('../server');
 const chai = require('chai');
 const http = require('chai-http');
@@ -97,7 +95,7 @@ function(){
       .catch(err => {
         console.log('the error im lookin at', err);
       });
-      //
+
       done();
     });
 
@@ -106,18 +104,12 @@ function(){
       describe('/api/npo/:id', function() {
         it('should return a 200 if successful', done => {
           superagent.put(`${baseURL}/api/npo/`);
-          // .set({
-          //   'Authorization': `Bearer ${token[0]}`,
-          //   'Content-Type': 'application/json',
-          // })
-          // .then(res => {
-          //   console.log(res.status);
-          // });
+
           done();
         });
 
         it('should update the record in the db', done => {
-          
+
           done();
         });
       });
@@ -127,14 +119,7 @@ function(){
       describe('with a valid body', function() {
 
         it('should return a token', done => {
-          // superagent.get(`${baseURL}/api/signin`)
-          // .auth('chris', '1234')
-          // .end((err, res) => {
-          //   if (err) return done(err);
-          //   console.log('\ntoken:', res.text);
-          //   console.log(res.status);
-          //   expect(res.status).to.equal(200);
-          // });
+
           done();
         });
       });
@@ -232,14 +217,7 @@ function(){
 
     describe('/api/npo/:id', function() {
       it('should return a 200 if successful', done => {
-        // superagent.delete(`${baseURL}/api/npo/${npoProf[0]._id}`)
-        // .set({
-        //   'Authorization': `Bearer ${token[0]}`,
-        //   'Content-Type': 'application/json',
-        // })
-        // .then(res => {
-        //   console.log(res.status);
-        // });
+
         done();
       });
 

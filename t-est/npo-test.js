@@ -25,10 +25,7 @@ function(){
 
   describe('testing POST /api/npo', function(){
     it('should respond with a 200 on good request', function(done){
-      // superagent.post(`${baseURL}/api/npo`)
-      // .send({npoMocks})
-      // .then(done)
-      // .catch(done);
+
       done();
     });
 
@@ -101,7 +98,6 @@ function(){
 
     it('should respond with a 404 status code on bad request', (done) => {
       superagent.get(`${baseURL}/api/badlogin`)
-      // .auth(this.tempUser.username, '1234')
       .then(done)
       .catch(err => {
         console.log('err.message', err.message);
