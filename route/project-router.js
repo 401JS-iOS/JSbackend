@@ -19,7 +19,6 @@ module.exports = function(router) {
   });
 
   router.get('/npo/:id/project/:id', (req, res) => {
-    //if(!req.user.isNpo) return next(createError(401, 'please log in as a npoelopr'));
 
     projectController.fetchProject(req.params.id)
     .then(proj => {
