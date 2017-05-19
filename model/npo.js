@@ -6,6 +6,7 @@ let npoSchema = mongoose.Schema({
   userID: {type: mongoose.Schema.Types.ObjectId, ref: 'users' },
   username: {type: String, ref: 'users'},
   org: {type: String, required: true, unique: true}, //organization name
+  orgDesc: {type: String},
   city: {type: String},
   state: {type: String},
   phone: {type: String},
