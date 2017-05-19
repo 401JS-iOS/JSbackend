@@ -3,14 +3,10 @@
 const Project = require('../model/project');
 const Npo = require('../model/npo');
 const Promise = require('bluebird');
-//const Dev = require('../model/dev');
-//const mongoose = require('mongoose');
 
 module.exports = exports = {};
 
 exports.createProject = function(req) {
-  //console.log('this is the request', req);
-  // req.userID = user._id;
 
   return Npo.findById(req.params.id)
   .then(() => {
@@ -22,11 +18,9 @@ exports.createProject = function(req) {
       desc: req.body.desc,
     };
     return new Project(projData).save();
-    //console.log('this is the project instance', projectInstance);
   })
   .then(proj => proj)
   .catch(err => Promise.reject(err.message));
-
 };
 
 exports.fetchAllProjects = function(res) {

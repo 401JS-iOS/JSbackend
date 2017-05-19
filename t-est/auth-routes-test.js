@@ -28,7 +28,6 @@ const exampleUser = {
 chai.use(http);
 
 let token = [];
-module.exports = token;
 
 describe('=================================================\n  server - test\n  =================================================\n',
 function() {
@@ -36,7 +35,6 @@ function() {
   after(serverControl.killServer);
 
   let userObj = [];
-
 
   describe('/wrong endpoint', function() {
     it('should respond with a 404 on bad request', done => {
@@ -52,13 +50,6 @@ function() {
   });
 
   describe('POST || signup method', function() {
-    // after(done => {
-    //   User.findOne({username: 'chris'})
-    //   .then(user => {
-    //     User.findByIdAndRemove(user._id)
-    //    .then(() => done());
-    //   });
-    // });
 
     describe('/signup endpoint', function() {
       it('should respond with a 200 on proper request', done => {
@@ -102,22 +93,6 @@ describe('Auth Routes', function() {
     });
   });
 
-      // before( done => {
-      //   let user = new User(exampleUser);
-      //   user.generatePasswordHash(exampleUser.password)
-      //   .then( user => user.save())
-      //   .then( user => {
-      //     this.tempUser = user;
-      //     done();
-      //   })
-      //   .catch(done);
-      // });
-      //
-      // after( done => {
-      //   User.remove({})
-      //   .then( () => done())
-      //   .catch(done);
-      // });
   describe('GET: /api/signin', function() {
     describe('with a valid body', function() {
 
@@ -132,6 +107,15 @@ describe('Auth Routes', function() {
         //   console.log(res.status);
         //   expect(res.status).to.equal(200);
         // });
+        done();
+      });
+    });
+  });
+
+  describe('DELETE user', function() {
+    describe('/api/user/:id', function() {
+      it('should return a 200 if successful', done => {
+        // request.delete(`${url}/api/signin`)
         done();
       });
     });
@@ -157,26 +141,9 @@ describe('Auth Routes', function() {
       done();
     });
   });
-
-  // describe('DELETE user', function() {
-  //   it('should return a 200 if successful', done => {
-  //     request.delete(`${url}/api/signin`)
-  //   })
-  // })
 });
 
-// const expect = require('chai').expect;
-// const Dev = require('../model/dev.js');
-// const userMocks = require('./lib/mock-user.js');
-// const token = require('./auth-routes-test');
-
 const baseURL = `http://localhost:${process.env.PORT}`;
-
-// const userDuce = {
-//     username: 'boatsboats',
-//     password: '1234',
-//     email: 'boats@boatsboats.com',
-//   }
 
 describe('=================================================\n  testing dev-router\n  =================================================\n',
 function(){
@@ -198,25 +165,10 @@ function(){
     done();
   });
 
+  let devProf = [];
+
   describe('testing POST /api/dev', function(){
     let results = [];
-
-    // before((done) => {
-    //   superagent.post(`${baseURL}/api/signup`)
-    //   .send({
-    //     username: 'boatsboats',
-    //     password: '1234',
-    //     email: 'boats@boatsboats.com',
-    //   })
-    //   .then(res => {
-    //     results.push(res.text);
-    //     console.log('this should be the token: ', results[0]);
-    //     // expect(res.status).to.equal(200);
-    //     // expect(Boolean(res.text)).to.equal(true);
-    //     done();
-    //   })
-    //   .catch(done);
-    // });
 
     it('should respond with a 200 on good request', function(done){
       console.log('token', token[0]);
@@ -226,16 +178,16 @@ function(){
         'Authorization': `Bearer ${token[0]}`,
         'Content-Type': 'application/json',
       })
-      // .set('Content-Type', 'application/json')
       .then(res => {
-        console.log(res.status, res.body);
-        expect(res).to.have.status(200);
+        devProf.push(res.body);
+        console.log('dev obj', devProf);
 
+        expect(res).to.have.status(200);
       })
       .catch(err => {
         console.log('the error im lookin at', err);
-
       });
+
       done();
     });
 
@@ -247,13 +199,12 @@ function(){
           .auth('chris', '1234')
           .end((err, res) => {
             if (err) return done(err);
-            // console.log('\nuser:', this.tempUser);
             console.log('\ntoken:', res.text);
-            // token.push(res.text);
             console.log(res.status);
+
             expect(res.status).to.equal(200);
+            done();
           });
-          done();
         });
       });
     });
@@ -265,6 +216,7 @@ function(){
       .catch(err => {
         console.log('err.error', err.message);
         results.push(err.message);
+
         expect(err.status).to.equal(401);
         done();
       })
@@ -315,8 +267,8 @@ function(){
 
     it('should respond with a 200 status code on good request', (done) => {
       superagent.get(`${baseURL}/api/devlist`)
-      .auth(`${this.username}:${this.password}`)
       .then(res => {
+
         expect(res.status).to.equal(200);
         done();
       })
@@ -325,7 +277,6 @@ function(){
 
     it('should respond with a 404 status code on bad request', (done) => {
       superagent.get(`${baseURL}/api/badlogin`)
-      // .auth(this.tempUser.username, '1234')
       .then(done)
       .catch(err => {
         console.log('err.message', err.message);
@@ -341,6 +292,28 @@ function(){
       expect(results[0]).to.equal('Not Found');
       results.pop();
       done();
+    });
+  });
+
+  describe('DELETE dev', function() {
+
+    describe('/api/dev/:id', function() {
+      it('should return a 200 if successful', done => {
+        superagent.delete(`${baseURL}/api/dev/${devProf[0]._id}`)
+        .set({
+          'Authorization': `Bearer ${token[0]}`,
+          'Content-Type': 'application/json',
+        })
+        .then(res => {
+          console.log(res.status);
+        });
+        done();
+      });
+
+      it('should remove the record from the db', done => {
+
+        done();
+      });
     });
   });
 });
