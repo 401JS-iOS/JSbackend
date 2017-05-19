@@ -6,3 +6,5 @@ require('./t-est/auth-routes-test');
 require('./t-est/npo-routes-test');
 require('./t-est/project-routes-test');
 require('./t-est/review-routes-test');
+require('./t-est/user-routes-test');
+require('./t-est/npo-test');

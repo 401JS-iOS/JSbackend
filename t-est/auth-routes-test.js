@@ -9,7 +9,7 @@ const expect = require('chai').expect;
 const mongoose = require('mongoose');
 const Promise = require('bluebird');
 const User = require('../model/user');
-const Dev =require('../model/dev');
+// const Dev =require('../model/dev');
 const server = require('../server');
 const chai = require('chai');
 const http = require('chai-http');
@@ -158,12 +158,12 @@ function(){
     done();
   });
 
-  after(done => {
-    Dev.remove({})
-    .then(() => done)
-    .catch(done);
-    done();
-  });
+  // after(done => {
+  //   Dev.remove({})
+  //   .then(() => done)
+  //   .catch(done);
+  //   done();
+  // });
 
   let devProf = [];
 
@@ -189,6 +189,58 @@ function(){
       });
 
       done();
+    });
+
+    describe('POST accept project dev', function() {
+
+      describe('/api/dev/:id/project', function() {
+        it('should return a 200 if successful', done => {
+          superagent.post(`${baseURL}/api/dev/${devProf[0]._id}/project`)
+          .set({
+            'Authorization': `Bearer ${token[0]}`,
+            'Content-Type': 'application/json',
+          })
+          .then(res => {
+            console.log(res.status);
+
+            expect(res).to.have.status(200);
+          });
+
+          done();
+        });
+
+        it('should update the record in the db', done => {
+
+          expect(devProf[0]._id).to.exist;
+          done();
+        });
+      });
+    });
+
+    describe('UPDATE dev', function() {
+
+      describe('/api/dev/:id', function() {
+        it('should return a 200 if successful', done => {
+          superagent.put(`${baseURL}/api/dev/${devProf[0]._id}`)
+          .set({
+            'Authorization': `Bearer ${token[0]}`,
+            'Content-Type': 'application/json',
+          })
+          .then(res => {
+            console.log(res.status);
+
+            expect(res).to.have.status(200);
+          });
+
+          done();
+        });
+
+        it('should update the record in the db', done => {
+
+          expect(devProf[0]._id).to.exist;
+          done();
+        });
+      });
     });
 
     describe('GET: /api/signin', function() {
