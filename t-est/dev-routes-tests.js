@@ -25,7 +25,6 @@ function(){
         'Authorization': `Bearer ${token[0]}`,
         'Content-Type': 'application/json',
       })
-      // .set('Content-Type', 'application/json')
       .then(res => {
         console.log('res', res.text);
 
@@ -104,7 +103,6 @@ function(){
 
     it('should respond with a 404 status code on bad request', (done) => {
       superagent.get(`${baseURL}/api/badlogin`)
-      // .auth(this.tempUser.username, '1234')
       .then(done)
       .catch(err => {
         console.log('err.message', err.message);

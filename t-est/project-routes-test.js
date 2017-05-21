@@ -8,8 +8,6 @@ const Npo = require('../model/npo');
 const mongoose = require('mongoose');
 const projectMocks = require('./lib/mock-project');
 const serverControl = require('./lib/server-control');
-// const mockUser = require('./lib/mock-user');
-// const server = require('../server');
 const chai = require('chai');
 const http = require('chai-http');
 require('../server.js');
@@ -47,11 +45,7 @@ function(){
 
   describe('testing POST /api/project', function(){
     it('should respond with a 200 on good request', function(done){
-      // chai.request(server)
-      // .post(`${baseURL}/api/project desc:'asoidj' service:'ewfoihdf'`)
-      //
-      // .then(done)
-      // .catch(done);
+
       done();
     });
 
@@ -128,7 +122,6 @@ function(){
 
     it('should respond with a 404 status code on bad request', (done) => {
       superagent.get(`${baseURL}/api/badlogin`)
-      // .auth(this.tempProject.username, '1234')
       .then(done)
       .catch(err => {
         console.log(err.status);
@@ -181,5 +174,4 @@ function(){
       });
     });
   });
-  // });
 });

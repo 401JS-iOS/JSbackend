@@ -4,15 +4,8 @@ const expect = require('chai').expect;
 const superagent = require('superagent');
 const Review = require('../model/review');
 const userMocks = require('./lib/mock-user');
-// const npoMocks = require('./lib/mock-npo');
-// const projMocks = require('./lib/mock-project');
 const reviewMocks = require('./lib/mock-review');
 const serverControl = require('./lib/server-control');
-// const userCtrl = require('../controller/auth-controller');
-// const npoCtrl = require('../controller/npo-controller');
-// const reviewCtrl = require('../controller/review-controller');
-// const projCtrl = require('../controller/project-controller');
-// const User = require('../model/user');
 
 const baseURL = `http://localhost:${process.env.PORT}`;
 
@@ -22,37 +15,12 @@ function(){
   before(serverControl.startServer);
   after(serverControl.killServer);
 
-  // let newUser = [];
-    // newNpo = [],
-    // newProject = [],
-    // newReview = [];
-
-  // let jimmy = new User({
-  //   username: 'jimmy',
-  //   email: 'email@jimmy.com',
-  //   password: 'password',
-  // })
-  // .generatePasswordHash('password')
-  // .then(user => user.save())
-  // .then(user => {
-  //   this.tempUser = user;
-  //   return user.generateToken();
-  // });
-
   console.log(userMocks);
 
   describe('user controller', function() {
     describe('createUser', function() {
       it('should make a user', (done, err) => {
         if(err) console.error(err);
-        // userCtrl.createUser(userMocks)
-        // .then(token => token)
-        // .catch(err => err);
-        // userCtrl.createUser(userMocks)
-        // .then(err => {
-        //   console.log(err);
-        //   expect(err);
-        // });
 
         done();
       });
@@ -62,10 +30,7 @@ function(){
   describe('npo controller', function() {
     describe('createNpo', function() {
       it('should make a npo', done => {
-        // npoCtrl.createNpo(npoMocks);
-        // .then(res => {
-        //
-        // })
+
         done();
       });
     });
@@ -74,7 +39,7 @@ function(){
   describe('project controller', function() {
     describe('createProject', function() {
       it('should make a project', done => {
-        // projCtrl.createProject(projMocks);
+
         done();
       });
     });
@@ -83,7 +48,7 @@ function(){
   describe('review controller', function() {
     describe('createReview', function() {
       it('should make a review', done => {
-        // reviewCtrl.createReview(reviewMocks);
+
         done();
       });
     });
@@ -91,10 +56,6 @@ function(){
 
   describe('testing POST /review', function() {
     it('should respond with a 200 on good request', function(done){
-      // superagent.post(`${baseURL}/api/review`)
-      // .send({reviewMocks})
-      // .then(done)
-      // .catch(done);
 
       done();
     });
@@ -173,7 +134,6 @@ function(){
 
     it('should respond with a 404 status code on bad request', (done) => {
       superagent.get(`${baseURL}/api/badlogin`)
-      // .auth(this.tempReview.username, '1234')
       .then(done)
       .catch(err => {
         console.log(err.status);

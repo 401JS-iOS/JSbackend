@@ -5,19 +5,15 @@ const superagent = require('superagent');
 const devMocks = require('./lib/mock-dev');
 const serverControl = require('./lib/server-control');
 const expect = require('chai').expect;
-// const request = require('superagent');
 const mongoose = require('mongoose');
 const Promise = require('bluebird');
 const User = require('../model/user');
-// const Dev =require('../model/dev');
 const server = require('../server');
 const chai = require('chai');
 const http = require('chai-http');
 
 require('../server.js');
 mongoose.Promise = Promise;
-
-// const url = `http://localhost:${process.env.PORT}`;
 
 const exampleUser = {
   username: 'chris',
@@ -56,7 +52,7 @@ function() {
         chai.request(server)
         .post('/api/signup')
         .send(exampleUser)
-        // {username:'chris', email:'c@c.com', password:'1234'}
+
         .end((err, res) => {
           console.log(res.status, res.body);
           token.push(res.body);
@@ -72,24 +68,7 @@ function() {
 describe('Auth Routes', function() {
   describe('POST: /api/signup', function() {
     describe('with a valid body', function() {
-      // after( done => {
-      //   User.remove({})
-      //   .then(() => done())
-      //   .catch(done);
-      // });
 
-      // it('should return a token', done => {
-      //   console.log('exampleUser ', exampleUser);
-      //   request.post(`${url}/api/signup `)
-      //   .send(exampleUser)
-      //   .end((err, res) => {
-      //     if (err) return done(err);
-      //     console.log('\ntoken:', res.text, '\n');
-      //     expect(res.status).to.equal(200);
-      //     expect(res.text).to.be.a('string');
-      //     done();
-      //   });
-      // });
     });
   });
 
@@ -97,16 +76,7 @@ describe('Auth Routes', function() {
     describe('with a valid body', function() {
 
       it('should return a token', done => {
-        // request.get(`${url}/api/signin`)
-        // .auth('chris', '1234')
-        // .end((err, res) => {
-        //   if (err) return done(err);
-        //   // console.log('\nuser:', this.tempUser);
-        //   console.log('\ntoken:', res.text);
-        //   token.push(res.text);
-        //   console.log(res.status);
-        //   expect(res.status).to.equal(200);
-        // });
+
         done();
       });
     });
@@ -115,7 +85,7 @@ describe('Auth Routes', function() {
   describe('DELETE user', function() {
     describe('/api/user/:id', function() {
       it('should return a 200 if successful', done => {
-        // request.delete(`${url}/api/signin`)
+
         done();
       });
     });
@@ -124,20 +94,7 @@ describe('Auth Routes', function() {
   describe('POST Dev', function() {
     it('should return a 200 status on a proper post', done => {
       console.log(token[0]);
-      // request.post(`${url}/api/dev`)
-      // .send({'username': 'exampleuser', 'website': 'macrohard.com', 'state': 'Washington', 'phone': '555-4059', 'email': 'exampleuser@test.com'})
-      // .set({
-      //   'Authorization': `Bearer ${token[0]}`,
-      //   'Content-Type': 'application/json',
-      // })
-      // // .auth('exampleuser', '1234')
-      // .end((err, res) => {
-      //   if(err) return done(err);
-      //   console.log(res.status);
-      //
-      //   // expect(res.status).to.equal(200);
-      //
-      // });
+
       done();
     });
   });
@@ -157,13 +114,6 @@ function(){
     .catch(done);
     done();
   });
-
-  // after(done => {
-  //   Dev.remove({})
-  //   .then(() => done)
-  //   .catch(done);
-  //   done();
-  // });
 
   let devProf = [];
 
